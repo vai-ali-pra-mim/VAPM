@@ -1,47 +1,44 @@
-package com.example.vaialipramim.dominios;
+package com.example.vaialipramim.visoes;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
-@Entity
-public class Usuario {
-
-    //-----Atributos Usuários-----
+public class UsuarioLoginVisao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario",nullable = false)
+    @Column(name = "id_usuario")
     private Integer idUsuario;
 
     @Length(min = 3, max = 60)
-    @Column(name = "nome_completo",nullable = false)
+    @Column(name = "nome_completo")
     private String nomeCompleto;
 
     @Length(min = 11, max = 11)
-    @Column(nullable = false)
+    @Column()
     private String CPF;
 
     @Past
-    @Column(name = "data_nascimento",nullable = false)
+    @Column(name = "data_nascimento")
     private LocalDate dataNascimento;
 
-    @Column(nullable = false)
+    @Column()
     private String complemento;
 
-    @Column(nullable = false)
+    @Length(min = 11, max = 11)
+    @Column()
+    private String telefone;
+
+    @Column()
     @Length(min = 8, max = 9)
     private String CEP;
 
-    @Length(min = 7, max = 65)
-    @Column(unique = true,nullable = false)
+    @Column()
     private String email;
-    @Column(nullable = false)
-    private String senha;
 
-    @Length(min = 11, max = 11)
-    @Column(nullable = false)
-    private String telefone;
+    @Column()
+    private String senha;
 
     @Column()
     private String coordenadas;
@@ -52,16 +49,21 @@ public class Usuario {
     @Column()
     private Double saldo;
 
-    @ManyToOne()
-    private Cartao cartao;
-
-    @ManyToOne
-    private Post post;
-
-    //-----Construtor para auxiliar nos cadastros na classe "controller"-----
-
-    public Usuario() {
-
+    public UsuarioLoginVisao(Integer idUsuario, @Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF, @Past LocalDate dataNascimento,
+                             String complemento, @Length(min = 11, max = 11) String telefone, @Length(min = 8, max = 9) String CEP, String email, String senha,
+                             String coordenadas, String RG, Double saldo) {
+        this.idUsuario = idUsuario;
+        this.nomeCompleto = nomeCompleto;
+        this.CPF = CPF;
+        this.dataNascimento = dataNascimento;
+        this.complemento = complemento;
+        this.telefone = telefone;
+        this.CEP = CEP;
+        this.email = email;
+        this.senha = senha;
+        this.coordenadas = coordenadas;
+        this.RG = RG;
+        this.saldo = saldo;
     }
 
     public Integer getIdUsuario() {
@@ -158,34 +160,5 @@ public class Usuario {
 
     public void setSaldo(Double saldo) {
         this.saldo = saldo;
-    }
-
-    public void depositarSaldo(Double saldo) {
-        if(this.saldo == null){
-            this.saldo = 0.0;
-        }
-        this.saldo += saldo;
-    }
-
-    public void sacarSaldo(Double saque) {
-        if(this.saldo - saque >= 0.0 ){
-            this.saldo -= saque;
-        }
-    }
-
-    public Cartao getCartao() {
-        return cartao;
-    }
-
-    public void setCartao(Cartao cartao) {
-        this.cartao = cartao;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
     }
 }

@@ -1,15 +1,17 @@
 package com.example.vaialipramim.controladores;
 
-import com.example.vaialipramim.Utils.CalcularDistancia;
-import com.example.vaialipramim.Utils.Coordenadas;
 import com.example.vaialipramim.dominios.Usuario;
 import com.example.vaialipramim.repositorios.UsuarioRepository;
-import com.example.vaialipramim.visoes.UsuarioVisao;
+import com.example.vaialipramim.servicos.GravarUsuarioEmArquivoServico;
+import com.example.vaialipramim.servicos.RealizarMatchingEntreUsuariosServico;
+import com.example.vaialipramim.visoes.UsuarioLoginVisao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,7 +25,7 @@ public class ControllerUsuario {
 
     @GetMapping
     public ResponseEntity getTodos() {
-        var usuarios = repository.findAllSimples();
+        List<Usuario> usuarios = repository.findAll();
         if (usuarios.isEmpty()) {
             return ResponseEntity.noContent().build();
 
@@ -34,51 +36,21 @@ public class ControllerUsuario {
 
     @GetMapping("/entregadores/{posicaoSolicitante}")
     public ResponseEntity getEntregadores(@PathVariable String posicaoSolicitante) {
-        List<UsuarioVisao> usuarios = repository.findAllSimples();
-        String[] stringPosicaoSolicitante = posicaoSolicitante.split(",");
-        Coordenadas coordinadasSolicitante = new Coordenadas(Double.parseDouble(stringPosicaoSolicitante[0]), Double.parseDouble(stringPosicaoSolicitante[1]));
-
-        if (usuarios.isEmpty()) {
-
-            return ResponseEntity.noContent().build();
-        } else {
-            List<UsuarioVisao> usuariosDentroDoRaioDistancia = new ArrayList<>();
-
-            for (UsuarioVisao usuario : usuarios) {
-
-                String[] stringCoordenadasEntregador = usuario.getCoordenadas().split(", ");
-                Coordenadas CoordenadasEntregador = new Coordenadas(Double.parseDouble(stringCoordenadasEntregador[0]), Double.parseDouble(stringCoordenadasEntregador[1]));
-
-                if ( CalcularDistancia.distanciaEmKMEntreCoordenadas(coordinadasSolicitante,CoordenadasEntregador) < 0.500)
-                    usuariosDentroDoRaioDistancia.add(usuario);
-            }
-
-            if (usuariosDentroDoRaioDistancia.isEmpty())
-                return ResponseEntity.noContent().build();
-            else
-                return ResponseEntity.ok().body(usuariosDentroDoRaioDistancia);
-        }
+        RealizarMatchingEntreUsuariosServico realizarMatching = new RealizarMatchingEntreUsuariosServico(repository, posicaoSolicitante);
+        return  realizarMatching.execute();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity getId(@PathVariable int id) {
         Optional<Usuario> usuario = repository.findById(id);
-        if (usuario.isPresent()) {
-            return ResponseEntity.ok(repository.findByIdUsuarioVisao(id));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+       return ResponseEntity.of(usuario);
     }
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody Usuario usuario) {
-        var todos = repository.findAllSimples();
-        for (UsuarioVisao usuarioVisao : todos) {
-            if (usuarioVisao.getEmail().equals(usuario.getEmail()) && usuarioVisao.getSenha().equals(usuario.getSenha())) {
-                return ResponseEntity.ok(usuarioVisao);
-            }
-        }
-        return ResponseEntity.notFound().build();
+        UsuarioLoginVisao usuarioEncontrado = repository.findByEmailESenha(usuario.getEmail(), usuario.getSenha());
+
+        return ResponseEntity.ok(usuarioEncontrado);
     }
 
     @DeleteMapping("/{id}")
@@ -113,7 +85,6 @@ public class ControllerUsuario {
             }
 
             usuario.setSenha(novaSenha.getSenha());
-
             repository.save(usuario);
 
             return ResponseEntity.ok().build();
@@ -138,7 +109,6 @@ public class ControllerUsuario {
 
             usuario.setCEP(novoEndereco.getCEP());
             usuario.setComplemento(novoEndereco.getComplemento());
-
             repository.save(usuario);
 
             return ResponseEntity.ok().build();
@@ -151,7 +121,7 @@ public class ControllerUsuario {
     public ResponseEntity alteraTelefone(@PathVariable int id, @RequestBody @Valid Usuario novoTelefone) {
         boolean existsUsuario = repository.existsById(id);
         if (existsUsuario) {
-            var usuarios = repository.findAll();
+            List<Usuario> usuarios = repository.findAll();
 
             Usuario usuario = new Usuario();
             for (var index = 0; index < usuarios.size(); index++) {
@@ -162,7 +132,6 @@ public class ControllerUsuario {
             }
 
             usuario.setTelefone(novoTelefone.getTelefone());
-
             repository.save(usuario);
 
             return ResponseEntity.ok().build();
@@ -171,10 +140,46 @@ public class ControllerUsuario {
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("/download")
+    public ResponseEntity getTodos(HttpServletResponse response) throws IOException {
+        GravarUsuarioEmArquivoServico gravarUsuarioEmArquivoServico = new GravarUsuarioEmArquivoServico(repository, response);
 
+        return ResponseEntity.ok(gravarUsuarioEmArquivoServico.execute());
+    }
 
+    @PatchMapping("{id}/depositar/{valor}")
+    public ResponseEntity depositarCredito(@PathVariable int id, @PathVariable  Double valor){
 
+         var usuario = repository.findById(1);
+         if(usuario.isPresent()){
+             List<Usuario> todos = repository.findAll();
+             for (Usuario usuarioAtual: todos){
+                 if(usuarioAtual.getIdUsuario() == id){
+                     usuarioAtual.depositarSaldo(valor);
+                     repository.save(usuarioAtual);
+                     return  ResponseEntity.ok(usuarioAtual.getSaldo());
+                 }
+             }
+         }
 
+        return ResponseEntity.notFound().build();
+    }
+
+    @PatchMapping("{id}/sacar/{valor}")
+    public ResponseEntity sacarCredito(@PathVariable int id, @PathVariable Double valor){
+
+        var usuario = repository.findById(1);
+        if(usuario.isPresent()){
+            List<Usuario> todos = repository.findAll();
+            for (Usuario usuarioAtual: todos){
+                if(usuarioAtual.getIdUsuario() == id){
+                    usuarioAtual.sacarSaldo(valor);
+                    repository.save(usuarioAtual);
+                    return  ResponseEntity.ok(usuarioAtual.getSaldo());
+                }
+            }
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 }
-
-

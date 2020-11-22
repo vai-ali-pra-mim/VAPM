@@ -1,0 +1,5 @@
+00txtAZURE16-11-2020 20:20:3001
+021 UsuarioAntônio Mello                                     041848380901957-04-13  Antonio.melo@gmail.com                            11940405989  02120-040Nº450               null    null     
+022 UsuarioSusana B. Mattos                                  986384220671952-12-03  Mattos.susana@gmail.com                           11491939245  02120-040Nº370               null    null     
+023 UsuarioFábio Araujo Cunha                                911491250392001-11-11  Caraujo.fabio@gmail.com                           11398367463  02120-040Nº316               12.5    108265912
+01000003

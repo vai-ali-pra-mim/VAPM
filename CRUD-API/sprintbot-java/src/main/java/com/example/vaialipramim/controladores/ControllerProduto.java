@@ -1,6 +1,7 @@
 package com.example.vaialipramim.controladores;
 
 import com.example.vaialipramim.Utils.Adapter;
+import com.example.vaialipramim.Utils.GravarArquivo;
 import com.example.vaialipramim.Utils.ListaObjetos;
 import com.example.vaialipramim.dominios.Produto;
 import com.example.vaialipramim.repositorios.ProdutoRepository;
@@ -8,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.*;
 import java.util.Optional;
 
 @RestController
@@ -83,5 +88,31 @@ public class ControllerProduto {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/download")
+    public ResponseEntity criarArquivoTxt(HttpServletResponse response) throws IOException {
+        Adapter<Produto> adapter = new Adapter<Produto>(repository.findAll());
+        ListaObjetos<Produto> produtos = adapter.getListaObjetos();
+
+        if (produtos.estaVazio()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            GravarArquivo<Produto> gravaArquivo = new GravarArquivo<>();
+
+            for (var index = 0; index < produtos.getNroElem(); index++) {
+                gravaArquivo.gravaRegistro("src/main/resources/static/produtos.csv", produtos.getElemento(index));
+            }
+
+            gravaArquivo.gravaRegistro("src/main/resources/static/produtos.csv");
+
+            File file = new File("src/main/resources/static/produtos.csv");
+            response.setHeader("Content-Disposition", String.format("attachment; filename=produtos.csv"));
+
+            try (InputStream inputStream = new BufferedInputStream(new FileInputStream(file))) {
+                FileCopyUtils.copy(inputStream, response.getOutputStream());
+            }
+            return ResponseEntity.ok().build();
+        }
     }
 }

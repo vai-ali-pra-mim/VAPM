@@ -48,9 +48,11 @@ insert into cartao(nome_titular,numero_cartao,tipo_cartao,bandeira,CVV,CPF,data_
 
 insert into usuario( nome_completo, CPF, data_nascimento,
 CEP,complemento, coordenadas, telefone, email, senha, RG, saldo, cartao_id_cartao, post_id_post) values
-( 'Antônio Mello','04184838090','1957-04-13', '02120-040', 'Nº450','-23.503544, -46.703784', '11940405989','Antonio.melo@gmail.com', 'anto32snci49',  null, null,1,1),
-( 'Susana B. Mattos','98638422067','1952-12-03', '02120-040', 'Nº370','-23.503544, -46.715794','11491939245','Mattos.susana@gmail.com', 'Wz2WhHRqGf9q',  null, null,1,2),
-( 'Fábio Araujo Cunha','91149125039','2001-11-11', '02120-040', 'Nº316','-23.501646, -46.706623','11398367463','Caraujo.fabio@gmail.com', 'gXYQdUzY8g9g', '108265912', 12.50,2,3),
-( 'Clara Souza Correia','04184838090','1998-10-22', '02111-000', 'Nº575','-23.502576, -46.705808','11396721374','Clara.souza@gmail.com', '43UgVjYTpWPE', '206129452', 11.98,3,null),
-( 'Julia Rocha Cardoso','76881245068','1995-12-26', '02111-000', 'Nº398','-23.504022, -46.704070','11783010395','Cardoso.Julia@gmail.com', 'tA6sJDrGNgfv', '216978373', 7.82,4, null);
+( 'Antônio Mello','04184838090','1957-04-13', '02120-040', 'Nº450','-23.504592088, -46.7138931076', '11940405989','Antonio.melo@gmail.com', 'anto32snci49',  null, null,1,1),
+( 'Susana B. Mattos','98638422067','1952-12-03', '02120-040', 'Nº370','-23.50508349488, -46.7129489558','11491939245','Mattos.susana@gmail.com', 'Wz2WhHRqGf9q',  null, null,1,2),
+( 'Fábio Araujo Cunha','91149125039','2001-11-11', '02120-040', 'Nº316','-23.5044984864, -46.7114816928','11398367463','Caraujo.fabio@gmail.com', 'gXYQdUzY8g9g', '108265912', 12.50,2,3),
+( 'Clara Souza Correia','04184838090','1998-10-22', '02111-000', 'Nº575','-23.50680340451, -46.71098409937','11396721374','Clara.souza@gmail.com', '43UgVjYTpWPE', '206129452', 11.98,3,null),
+( 'Julia Rocha Cardoso','76881245068','1995-12-26', '02111-000', 'Nº398','-23.50278788212, -46.7094984534','11783010395','Cardoso.Julia@gmail.com', 'tA6sJDrGNgfv', '216978373', 7.82,4, null),
+( 'João Pessoa','76881237565','1975-11-11', '02143-050', 'Nº398','-23.4989735141, -46.7107743342','11783010395','joao@gmail.com', 'joao123', '216976573', 3.82,4,null);
+
 

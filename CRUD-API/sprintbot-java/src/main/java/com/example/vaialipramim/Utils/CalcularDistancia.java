@@ -2,8 +2,8 @@ package com.example.vaialipramim.Utils;
 
 public class CalcularDistancia {
 
-    private static double degrausParaRadianos(double degraus){
-        return degraus * (Math.PI / 180);
+    private static double grausParaRadianos(double graus){
+        return graus * (Math.PI / 180);
     }
 
     public  static double distanciaEmKMEntreCoordenadas(Coordenadas coordenadasSolicitante, Coordenadas coordenadasEntregador){
@@ -16,12 +16,12 @@ public class CalcularDistancia {
         double latitudeCoordenadasEntregador = coordenadasEntregador.getLatitude();
         double longitudeCoordenadasEntregador = coordenadasEntregador.getLongitude();
 
-        double deltaLatitude = degrausParaRadianos(latitudeCoordenadasEntregador - latitudeCoordenadasSolicitante);
-        double deltaLongitude= degrausParaRadianos(longitudeCoordenadasEntregador - longitudeCoordenadasSolicitante);
+        double deltaLatitude = grausParaRadianos(latitudeCoordenadasEntregador - latitudeCoordenadasSolicitante);
+        double deltaLongitude= grausParaRadianos(longitudeCoordenadasEntregador - longitudeCoordenadasSolicitante);
 
         double arco = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2)+
-                Math.cos(degrausParaRadianos(latitudeCoordenadasEntregador))*
-                        Math.cos(degrausParaRadianos(latitudeCoordenadasEntregador))*
+                Math.cos(grausParaRadianos(latitudeCoordenadasSolicitante))*
+                        Math.cos(grausParaRadianos(latitudeCoordenadasEntregador))*
                         Math.sin(deltaLongitude/ 2) *
                         Math.sin(deltaLongitude/ 2);
 
