@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.*;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -55,10 +56,10 @@ public class ControllerProduto {
     public ResponseEntity editar(@PathVariable int id, @RequestBody @Valid Produto novoProduto) {
         boolean existsProduto = repository.existsById(id);
         if(existsProduto){
-            var produtos = repository.findAll();
+            List<Produto> produtos = repository.findAll();
 
             Produto produto = new Produto();
-            for (var index = 0; index < produtos.size(); index++){
+            for (int index = 0; index < produtos.size(); index++){
                 if(produtos.get(index).getIdProduto() == id){
                     produto = produtos.get(index);
                     break;
@@ -100,7 +101,7 @@ public class ControllerProduto {
         } else {
             GravarArquivo<Produto> gravaArquivo = new GravarArquivo<>();
 
-            for (var index = 0; index < produtos.getNroElem(); index++) {
+            for (int index = 0; index < produtos.getNroElem(); index++) {
                 gravaArquivo.gravaRegistro("src/main/resources/static/produtos.csv", produtos.getElemento(index));
             }
 

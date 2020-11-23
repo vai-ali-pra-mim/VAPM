@@ -44,7 +44,7 @@ public class ControllerPedido {
     @PostMapping()
     public ResponseEntity criarPedido(@RequestBody @Valid Pedido novoPedido) {
         double valorTotalCompras = 0;
-        for (var produto: novoPedido.getProdutosDoPedido()){
+        for (Produto produto: novoPedido.getProdutosDoPedido()){
             valorTotalCompras += produto.getValor();
         }
         novoPedido.setValorTotalCompras(valorTotalCompras);

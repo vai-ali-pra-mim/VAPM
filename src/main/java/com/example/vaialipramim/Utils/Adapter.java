@@ -1,5 +1,6 @@
 package com.example.vaialipramim.Utils;
 
+import javax.swing.text.Element;
 import java.util.List;
 
 public class Adapter<T> {
@@ -9,7 +10,7 @@ public class Adapter<T> {
     public Adapter(List list) {
 
         listaObjetos = new ListaObjetos<T>();
-        for (var elemento: list){
+        for (Object elemento: list){
             listaObjetos.adiciona((T) elemento);
         }
     }

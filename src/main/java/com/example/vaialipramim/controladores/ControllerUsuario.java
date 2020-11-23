@@ -74,10 +74,10 @@ public class ControllerUsuario {
     public ResponseEntity alteraSenha(@PathVariable int id, @RequestBody @Valid Usuario novaSenha) {
         boolean existsUsuario = repository.existsById(id);
         if (existsUsuario) {
-            var usuarios = repository.findAll();
+            List<Usuario> usuarios = repository.findAll();
 
             Usuario usuario = new Usuario();
-            for (var index = 0; index < usuarios.size(); index++) {
+            for (int index = 0; index < usuarios.size(); index++) {
                 if (usuarios.get(index).getIdUsuario() == id) {
                     usuario = usuarios.get(index);
                     break;
@@ -97,10 +97,10 @@ public class ControllerUsuario {
     public ResponseEntity alteraEndereco(@PathVariable int id, @RequestBody @Valid Usuario novoEndereco) {
         boolean existsUsuario = repository.existsById(id);
         if (existsUsuario) {
-            var usuarios = repository.findAll();
+            List<Usuario> usuarios = repository.findAll();
 
             Usuario usuario = new Usuario();
-            for (var index = 0; index < usuarios.size(); index++) {
+            for (int index = 0; index < usuarios.size(); index++) {
                 if (usuarios.get(index).getIdUsuario() == id) {
                     usuario = usuarios.get(index);
                     break;
@@ -124,7 +124,7 @@ public class ControllerUsuario {
             List<Usuario> usuarios = repository.findAll();
 
             Usuario usuario = new Usuario();
-            for (var index = 0; index < usuarios.size(); index++) {
+            for (int index = 0; index < usuarios.size(); index++) {
                 if (usuarios.get(index).getIdUsuario() == id) {
                     usuario = usuarios.get(index);
                     break;
@@ -150,7 +150,7 @@ public class ControllerUsuario {
     @PatchMapping("{id}/depositar/{valor}")
     public ResponseEntity depositarCredito(@PathVariable int id, @PathVariable  Double valor){
 
-         var usuario = repository.findById(1);
+         Optional<Usuario> usuario = repository.findById(1);
          if(usuario.isPresent()){
              List<Usuario> todos = repository.findAll();
              for (Usuario usuarioAtual: todos){
@@ -168,7 +168,7 @@ public class ControllerUsuario {
     @PatchMapping("{id}/sacar/{valor}")
     public ResponseEntity sacarCredito(@PathVariable int id, @PathVariable Double valor){
 
-        var usuario = repository.findById(1);
+        Optional<Usuario> usuario = repository.findById(1);
         if(usuario.isPresent()){
             List<Usuario> todos = repository.findAll();
             for (Usuario usuarioAtual: todos){

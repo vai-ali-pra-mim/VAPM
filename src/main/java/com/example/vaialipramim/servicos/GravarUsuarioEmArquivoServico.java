@@ -2,6 +2,7 @@ package com.example.vaialipramim.servicos;
 
 import com.example.vaialipramim.Utils.GravarArquivo;
 import com.example.vaialipramim.repositorios.UsuarioRepository;
+import com.example.vaialipramim.visoes.UsuarioVisao;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
 
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class GravarUsuarioEmArquivoServico {
 
@@ -34,7 +36,7 @@ public class GravarUsuarioEmArquivoServico {
         header += "01";
         GravarArquivo.gravaRegistro("src/main/resources/static\\usuarios.txt", header);
 
-        var lista = repository.findAllSimples();
+        List<UsuarioVisao> lista = repository.findAllSimples();
         for (int i = 0; i < lista.size() ; i++) {
             GravarArquivo.gravaRegistro("src/main/resources/static\\usuarios.txt",
                     lista.get(i));

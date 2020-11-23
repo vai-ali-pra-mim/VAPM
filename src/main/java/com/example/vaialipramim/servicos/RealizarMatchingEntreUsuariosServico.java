@@ -35,7 +35,7 @@ public class RealizarMatchingEntreUsuariosServico {
 
                 String[] stringCoordenadasEntregador = usuario.getCoordenadas().split(", ");
                 Coordenadas CoordenadasEntregador = new Coordenadas(Double.parseDouble(stringCoordenadasEntregador[0]), Double.parseDouble(stringCoordenadasEntregador[1]));
-                var c = CalcularDistancia.distanciaEmKMEntreCoordenadas(coordenadasSolicitante, CoordenadasEntregador);
+                double c = CalcularDistancia.distanciaEmKMEntreCoordenadas(coordenadasSolicitante, CoordenadasEntregador);
                 if (c <= 0.500 && c != 0.0)
                     usuariosDentroDoRaioDistancia.add(usuario);
             }

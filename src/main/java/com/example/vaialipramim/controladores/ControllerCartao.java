@@ -67,10 +67,10 @@ public class ControllerCartao {
     public ResponseEntity alteraCartao(@PathVariable int id, @RequestBody @Valid Cartao novoCartao){
         boolean existsCartao = repository.existsById(id);
         if (existsCartao){
-            var cartoes = repository.findAll();
+            List<Cartao> cartoes = repository.findAll();
 
             Cartao cartao = new Cartao();
-            for (var index = 0; index < cartoes.size(); index++){
+            for (int index = 0; index < cartoes.size(); index++){
                 if(cartoes.get(index).getIdCartao() == id){
                     cartao = cartoes.get(index);
                     break;
