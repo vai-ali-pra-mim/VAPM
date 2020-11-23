@@ -147,6 +147,20 @@ public class ControllerUsuario {
         return ResponseEntity.ok(gravarUsuarioEmArquivoServico.execute());
     }
 
+    @GetMapping("/saldo/{id}")
+    public ResponseEntity getSaldo(@PathVariable int id){
+        Optional<Usuario> usuario = repository.findById(id);
+        if(usuario.isPresent()){
+            List<Usuario> todos = repository.findAll();
+            for (Usuario usuarioCadastrado: todos){
+                if(usuarioCadastrado.getIdUsuario().equals(id)){
+                    return ResponseEntity.ok(usuarioCadastrado.getSaldo());
+                }
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PatchMapping("{id}/depositar/{valor}")
     public ResponseEntity depositarCredito(@PathVariable int id, @PathVariable  Double valor){
 
