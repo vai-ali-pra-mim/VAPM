@@ -66,8 +66,14 @@ public class ControllerUsuario {
 
     @PostMapping
     public ResponseEntity criaUsuario(@RequestBody @Valid Usuario usuario) {
-        repository.save(usuario);
-        return ResponseEntity.ok().build();
+        try{
+            repository.save(usuario);
+            return ResponseEntity.ok().build();
+        }
+        catch(Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 
     @PatchMapping("/{id}/senha")

@@ -27,6 +27,7 @@ public class Usuario {
     private LocalDate dataNascimento;
 
     @Column(nullable = false)
+    @Length(min = 3, max = 20)
     private String complemento;
 
     @Column(nullable = false)
@@ -39,6 +40,8 @@ public class Usuario {
     @Length(min = 7, max = 65)
     @Column(unique = true,nullable = false)
     private String email;
+
+    @Length(min = 7, max = 15)
     @Column(nullable = false)
     private String senha;
 
@@ -161,6 +164,14 @@ public class Usuario {
 
     public void setSaldo(Double saldo) {
         this.saldo = saldo;
+    }
+
+    public String getPontoReferencia() {
+        return pontoReferencia;
+    }
+
+    public void setPontoReferencia(String pontoReferencia) {
+        this.pontoReferencia = pontoReferencia;
     }
 
     public void depositarSaldo(Double saldo) {

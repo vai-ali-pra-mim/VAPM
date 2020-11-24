@@ -40,6 +40,9 @@ public class UsuarioLoginVisao {
     @Column()
     private String senha;
 
+    @Column(name = "ponto_referencia")
+    private String pontoReferencia;
+
     @Column()
     private String coordenadas;
 
@@ -88,6 +91,14 @@ public class UsuarioLoginVisao {
 
     public void setCPF(String CPF) {
         this.CPF = CPF;
+    }
+
+    public String getPontoReferencia() {
+        return pontoReferencia;
+    }
+
+    public void setPontoReferencia(String pontoReferencia) {
+        this.pontoReferencia = pontoReferencia;
     }
 
     public LocalDate getDataNascimento() {

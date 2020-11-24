@@ -49,6 +49,9 @@ public class UsuarioVisao {
     @Column()
     private String RG;
 
+    @Column(name = "ponto_referencia")
+    private String pontoReferencia;
+
     @Column()
     private Double saldo;
 
@@ -127,6 +130,13 @@ public class UsuarioVisao {
 
     public void setCEP(String CEP) {
         this.CEP = CEP;
+    }
+    public String getPontoReferencia() {
+        return pontoReferencia;
+    }
+
+    public void setPontoReferencia(String pontoReferencia) {
+        this.pontoReferencia = pontoReferencia;
     }
 
     public String getEmail() {
