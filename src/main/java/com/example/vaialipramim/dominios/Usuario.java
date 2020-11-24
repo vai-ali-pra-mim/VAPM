@@ -33,6 +33,9 @@ public class Usuario {
     @Length(min = 8, max = 9)
     private String CEP;
 
+    @Column(name = "ponto_referencia")
+    private String pontoReferencia;
+
     @Length(min = 7, max = 65)
     @Column(unique = true,nullable = false)
     private String email;
