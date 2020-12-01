@@ -22,7 +22,7 @@ public class RealizarMatchingEntreUsuariosServico {
 
     public ResponseEntity execute() {
         List<UsuarioVisao> usuarios = repository.findAllSimples();
-        String[] stringPosicaoSolicitante = posicaoSolicitante.split(",");
+        String[] stringPosicaoSolicitante = posicaoSolicitante.split(", ");
         Coordenadas coordenadasSolicitante = new Coordenadas(Double.parseDouble(stringPosicaoSolicitante[0]), Double.parseDouble(stringPosicaoSolicitante[1]));
 
         if (usuarios.isEmpty()) {

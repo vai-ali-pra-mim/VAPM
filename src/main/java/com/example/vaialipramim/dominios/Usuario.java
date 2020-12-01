@@ -45,7 +45,7 @@ public class Usuario {
     @Column(nullable = false)
     private String senha;
 
-    @Length(min = 11, max = 11)
+    @Length(min = 10, max = 11)
     @Column(nullable = false)
     private String telefone;
 
@@ -66,7 +66,26 @@ public class Usuario {
 
     //-----Construtor para auxiliar nos cadastros na classe "controller"-----
 
-    public Usuario() {
+
+    public Usuario(Integer idUsuario, @Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF, @Past LocalDate dataNascimento, @Length(min = 3, max = 20) String complemento, @Length(min = 8, max = 9) String CEP, String pontoReferencia, @Length(min = 7, max = 65) String email, @Length(min = 7, max = 15) String senha, @Length(min = 10, max = 11) String telefone, String coordenadas, String RG, Double saldo, Cartao cartao, Post post) {
+        this.idUsuario = idUsuario;
+        this.nomeCompleto = nomeCompleto;
+        this.CPF = CPF;
+        this.dataNascimento = dataNascimento;
+        this.complemento = complemento;
+        this.CEP = CEP;
+        this.pontoReferencia = pontoReferencia;
+        this.email = email;
+        this.senha = senha;
+        this.telefone = telefone;
+        this.coordenadas = coordenadas;
+        this.RG = RG;
+        this.saldo = saldo;
+        this.cartao = cartao;
+        this.post = post;
+    }
+
+    public Usuario(){
 
     }
 

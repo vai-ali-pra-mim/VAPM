@@ -39,6 +39,10 @@ public class Post {
     @Column(name = "limite_quantidade_item",nullable = false)
     private Integer limiteQuantidadeItens;
 
+    @Min(0)
+    @Column(name = "limite_peso_entrega",nullable = false)
+    private double limitePesoEntrega;
+
     @Length(min = 10)
     @Column(name = "local_tarefa",nullable = false)
     private String localTarefa;
@@ -58,73 +62,81 @@ public class Post {
 
     //-----Getters-----
 
+
     public Integer getIdPost() {
         return idPost;
+    }
+
+    public void setIdPost(Integer idPost) {
+        this.idPost = idPost;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public LocalDateTime getDataHoraDaRealizacao() {
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public LocalDateTime getDataHoraRealizacao() {
         return dataHoraRealizacao;
+    }
+
+    public void setDataHoraRealizacao(LocalDateTime dataHoraRealizacao) {
+        this.dataHoraRealizacao = dataHoraRealizacao;
     }
 
     public String getDescricao() {
         return descricao;
     }
 
-    public Double getTaxaDeEntrega() {
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public Double getTaxaEntrega() {
         return taxaEntrega;
     }
 
-    public Integer getLimiteDeQuantidadeItens() {
+    public void setTaxaEntrega(Double taxaEntrega) {
+        this.taxaEntrega = taxaEntrega;
+    }
+
+    public Integer getLimiteQuantidadeItens() {
         return limiteQuantidadeItens;
     }
 
-    public String getLocalDaTarefa() {
+    public void setLimiteQuantidadeItens(Integer limiteQuantidadeItens) {
+        this.limiteQuantidadeItens = limiteQuantidadeItens;
+    }
+
+    public double getLimitePesoEntrega() {
+        return limitePesoEntrega;
+    }
+
+    public void setLimitePesoEntrega(double limitePesoEntrega) {
+        this.limitePesoEntrega = limitePesoEntrega;
+    }
+
+    public String getLocalTarefa() {
         return localTarefa;
+    }
+
+    public void setLocalTarefa(String localTarefa) {
+        this.localTarefa = localTarefa;
     }
 
     public LocalTime getTempoEstimadoRealizacao() {
         return tempoEstimadoRealizacao;
     }
 
-    public Pedido getPedido() {
-        return pedido;
-    }
-    //-----Setters-----
-
-    public void setIdPost(Integer idPost) {
-        this.idPost = idPost;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public void setDataHoraDaRealizacao(LocalDateTime dataHoraDaRealizacao) {
-        this.dataHoraRealizacao = dataHoraDaRealizacao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public void setTaxaDeEntrega(Double taxaDeEntrega) {
-        this.taxaEntrega = taxaDeEntrega;
-    }
-
-    public void setLimiteDeQuantidadeItens(Integer limiteDeQuantidadeItens) {
-        this.limiteQuantidadeItens = limiteDeQuantidadeItens;
-    }
-
-    public void setLocalDaTarefa(String localDaTarefa) {
-        this.localTarefa = localDaTarefa;
-    }
-
     public void setTempoEstimadoRealizacao(LocalTime tempoEstimadoRealizacao) {
         this.tempoEstimadoRealizacao = tempoEstimadoRealizacao;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
     }
 
     public void setPedido(Pedido pedido) {
@@ -133,28 +145,29 @@ public class Post {
 
     public void setAll(Post post){
         this.titulo = post.getTitulo();
-        this.dataHoraRealizacao = post.getDataHoraDaRealizacao();
+        this.dataHoraRealizacao = post.getDataHoraRealizacao();
         this.descricao = post.getDescricao();
-        this.taxaEntrega = post.getTaxaDeEntrega();
-        this.limiteQuantidadeItens = post.getLimiteDeQuantidadeItens();
-        this.localTarefa = post.getLocalDaTarefa();
+        this.taxaEntrega = post.getTaxaEntrega();
+        this.limiteQuantidadeItens = post.getLimiteQuantidadeItens();
+        this.localTarefa = post.getLocalTarefa();
         this.tempoEstimadoRealizacao = post.getTempoEstimadoRealizacao();
     }
 
     @Override
     public String toString() {
         return "Post{" +
-                "idPost='" + idPost + '\'' +
+                "idPost=" + idPost +
                 ", titulo='" + titulo + '\'' +
-                ", dataHoraDaRealizacao=" + dataHoraRealizacao +
+                ", dataHoraRealizacao=" + dataHoraRealizacao +
                 ", descricao='" + descricao + '\'' +
-                ", taxaDeEntrega=" + taxaEntrega +
-                ", limiteDeQuantidadeItens=" + limiteQuantidadeItens +
-                ", localDaTarefa='" + localTarefa + '\'' +
+                ", taxaEntrega=" + taxaEntrega +
+                ", limiteQuantidadeItens=" + limiteQuantidadeItens +
+                ", limitePesoEntrega=" + limitePesoEntrega +
+                ", localTarefa='" + localTarefa + '\'' +
                 ", tempoEstimadoRealizacao=" + tempoEstimadoRealizacao +
+                ", pedido=" + pedido +
                 '}';
     }
-
 
 //-----Fim da classe-----
 }

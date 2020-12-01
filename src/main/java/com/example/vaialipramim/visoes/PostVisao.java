@@ -136,11 +136,11 @@ public class PostVisao {
 
     public void setAll(Post post){
         this.titulo = post.getTitulo();
-        this.dataHoraDaRealizacao = post.getDataHoraDaRealizacao();
+        this.dataHoraDaRealizacao = post.getDataHoraRealizacao();
         this.descricao = post.getDescricao();
-        this.taxaDeEntrega = post.getTaxaDeEntrega();
-        this.limiteDeQuantidadeItens = post.getLimiteDeQuantidadeItens();
-        this.localDaTarefa = post.getLocalDaTarefa();
+        this.taxaDeEntrega = post.getTaxaEntrega();
+        this.limiteDeQuantidadeItens = post.getLimiteQuantidadeItens();
+        this.localDaTarefa = post.getLocalTarefa();
         this.tempoEstimadoRealizacao = post.getTempoEstimadoRealizacao();
     }
 }

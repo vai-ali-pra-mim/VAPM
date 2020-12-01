@@ -5,6 +5,7 @@ import com.example.vaialipramim.repositorios.UsuarioRepository;
 import com.example.vaialipramim.servicos.GravarUsuarioEmArquivoServico;
 import com.example.vaialipramim.servicos.RealizarMatchingEntreUsuariosServico;
 import com.example.vaialipramim.visoes.UsuarioLoginVisao;
+import com.example.vaialipramim.visoes.UsuarioVisao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +35,18 @@ public class ControllerUsuario {
         }
     }
 
+    @GetMapping("/visao")
+    public ResponseEntity getTodosVisao() {
+        List<UsuarioVisao> usuarios = repository.findAllSimples();
+        if (usuarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+
+        } else {
+            return ResponseEntity.ok().body(usuarios);
+        }
+
+    }
+
     @GetMapping("/entregadores/{posicaoSolicitante}")
     public ResponseEntity getEntregadores(@PathVariable String posicaoSolicitante) {
         RealizarMatchingEntreUsuariosServico realizarMatching = new RealizarMatchingEntreUsuariosServico(repository, posicaoSolicitante);
@@ -49,6 +62,9 @@ public class ControllerUsuario {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody Usuario usuario) {
         UsuarioLoginVisao usuarioEncontrado = repository.findByEmailESenha(usuario.getEmail(), usuario.getSenha());
+
+        if(usuarioEncontrado == null)
+            return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(usuarioEncontrado);
     }
