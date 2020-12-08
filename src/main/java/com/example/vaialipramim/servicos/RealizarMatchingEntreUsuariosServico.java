@@ -8,7 +8,9 @@ import com.example.vaialipramim.visoes.UsuarioVisao;
 import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RealizarMatchingEntreUsuariosServico {
 
@@ -35,8 +37,8 @@ public class RealizarMatchingEntreUsuariosServico {
 
                 String[] stringCoordenadasEntregador = usuario.getCoordenadas().split(", ");
                 Coordenadas CoordenadasEntregador = new Coordenadas(Double.parseDouble(stringCoordenadasEntregador[0]), Double.parseDouble(stringCoordenadasEntregador[1]));
-                double c = CalcularDistancia.distanciaEmKMEntreCoordenadas(coordenadasSolicitante, CoordenadasEntregador);
-                if (c <= 0.500 && c != 0.0)
+                double proximidade = CalcularDistancia.distanciaEmKMEntreCoordenadas(coordenadasSolicitante, CoordenadasEntregador);
+                if (proximidade <= 0.500 && proximidade != 0.0 && usuario.getEhConsumidor().equals(0))
                     usuariosDentroDoRaioDistancia.add(usuario);
             }
 
@@ -46,5 +48,4 @@ public class RealizarMatchingEntreUsuariosServico {
                 return ResponseEntity.ok().body(usuariosDentroDoRaioDistancia);
         }
     }
-
 }

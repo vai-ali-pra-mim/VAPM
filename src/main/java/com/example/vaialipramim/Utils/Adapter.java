@@ -1,5 +1,7 @@
 package com.example.vaialipramim.Utils;
 
+import com.example.vaialipramim.dominios.Usuario;
+
 import javax.swing.text.Element;
 import java.util.List;
 

@@ -34,9 +34,6 @@ public class Usuario {
     @Length(min = 8, max = 9)
     private String CEP;
 
-    @Column(name = "ponto_referencia")
-    private String pontoReferencia;
-
     @Length(min = 7, max = 65)
     @Column(unique = true,nullable = false)
     private String email;
@@ -48,6 +45,18 @@ public class Usuario {
     @Length(min = 10, max = 11)
     @Column(nullable = false)
     private String telefone;
+
+    @Column(name = "ponto_referencia")
+    private String pontoReferencia;
+
+    @Column(name = "foto_rg")
+    private String fotoRG;
+
+    @Column(name = "foto_perfil")
+    private String fotoPerfil;
+
+    @Column(name = "eh_consumidor")
+    private Integer ehConsumidor;
 
     @Column()
     private String coordenadas;
@@ -61,28 +70,32 @@ public class Usuario {
     @ManyToOne()
     private Cartao cartao;
 
-    @ManyToOne
-    private Post post;
 
     //-----Construtor para auxiliar nos cadastros na classe "controller"-----
 
+    public Usuario(@Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF,
+                   @Past LocalDate dataNascimento, @Length(min = 3, max = 20) String complemento, @Length(min = 8, max = 9) String CEP,
+                   @Length(min = 7, max = 65) String email, @Length(min = 7, max = 15) String senha, @Length(min = 10, max = 11) String telefone,
+                   String pontoReferencia, String fotoRG, String fotoPerfil,
+                   Integer ehConsumidor, String coordenadas, String RG,
+                   Double saldo, Cartao cartao) {
 
-    public Usuario(Integer idUsuario, @Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF, @Past LocalDate dataNascimento, @Length(min = 3, max = 20) String complemento, @Length(min = 8, max = 9) String CEP, String pontoReferencia, @Length(min = 7, max = 65) String email, @Length(min = 7, max = 15) String senha, @Length(min = 10, max = 11) String telefone, String coordenadas, String RG, Double saldo, Cartao cartao, Post post) {
-        this.idUsuario = idUsuario;
         this.nomeCompleto = nomeCompleto;
         this.CPF = CPF;
         this.dataNascimento = dataNascimento;
         this.complemento = complemento;
         this.CEP = CEP;
-        this.pontoReferencia = pontoReferencia;
         this.email = email;
         this.senha = senha;
         this.telefone = telefone;
+        this.pontoReferencia = pontoReferencia;
+        this.fotoRG = fotoRG;
+        this.fotoPerfil = fotoPerfil;
+        this.ehConsumidor = ehConsumidor;
         this.coordenadas = coordenadas;
         this.RG = RG;
         this.saldo = saldo;
         this.cartao = cartao;
-        this.post = post;
     }
 
     public Usuario(){
@@ -214,11 +227,27 @@ public class Usuario {
         this.cartao = cartao;
     }
 
-    public Post getPost() {
-        return post;
+    public String getFotoRG() {
+        return fotoRG;
     }
 
-    public void setPost(Post post) {
-        this.post = post;
+    public void setFotoRG(String fotoRG) {
+        this.fotoRG = fotoRG;
+    }
+
+    public String getFotoPerfil() {
+        return fotoPerfil;
+    }
+
+    public void setFotoPerfil(String fotoPerfil) {
+        this.fotoPerfil = fotoPerfil;
+    }
+
+    public Integer getEhConsumidor() {
+        return ehConsumidor;
+    }
+
+    public void setEhConsumidor(Integer ehConsumidor) {
+        this.ehConsumidor = ehConsumidor;
     }
 }

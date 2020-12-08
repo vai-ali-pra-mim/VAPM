@@ -11,37 +11,52 @@ public class UsuarioVisao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
+    @Column(name = "id_usuario",nullable = false)
     private Integer idUsuario;
 
     @Length(min = 3, max = 60)
-    @Column(name = "nome_completo")
+    @Column(name = "nome_completo",nullable = false)
     private String nomeCompleto;
 
     @Length(min = 11, max = 11)
-    @Column()
+    @Column(nullable = false)
     private String CPF;
 
     @Past
-    @Column(name = "data_nascimento")
+    @Column(name = "data_nascimento",nullable = false)
     private LocalDate dataNascimento;
 
-    @Column()
+    @Column(nullable = false)
+    @Length(min = 3, max = 20)
     private String complemento;
 
-    @Length(min = 11, max = 11)
-    @Column()
-    private String telefone;
-
-    @Column()
+    @Column(nullable = false)
     @Length(min = 8, max = 9)
     private String CEP;
 
-    @Column()
+    @Length(min = 7, max = 65)
+    @Column(unique = true,nullable = false)
     private String email;
 
-    @Column()
+    @Length(min = 7, max = 15)
+    @Column(nullable = false)
     private String senha;
+
+    @Length(min = 10, max = 11)
+    @Column(nullable = false)
+    private String telefone;
+
+    @Column(name = "ponto_referencia")
+    private String pontoReferencia;
+
+    @Column(name = "foto_rg")
+    private String fotoRG;
+
+    @Column(name = "foto_perfil")
+    private String fotoPerfil;
+
+    @Column(name = "eh_consumidor")
+    private Integer ehConsumidor;
 
     @Column()
     private String coordenadas;
@@ -49,141 +64,119 @@ public class UsuarioVisao {
     @Column()
     private String RG;
 
-    @Column(name = "ponto_referencia")
-    private String pontoReferencia;
-
     @Column()
     private Double saldo;
 
-    @ManyToOne
-    private Post post;
+    public UsuarioVisao() {
+    }
 
-    public UsuarioVisao(Integer idUsuario, @Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF, @Past LocalDate dataNascimento,
-                        String complemento, @Length(min = 11, max = 11) String telefone, @Length(min = 8, max = 9) String CEP, String email, String senha,
-                        String coordenadas, String RG, Double saldo, Post post) {
+    public UsuarioVisao(Integer idUsuario, @Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF, @Past LocalDate dataNascimento, @Length(min = 3, max = 20) String complemento, @Length(min = 8, max = 9) String CEP,
+                        @Length(min = 7, max = 65) String email, @Length(min = 7, max = 15) String senha, @Length(min = 10, max = 11) String telefone,
+                        String pontoReferencia, String fotoRG, String fotoPerfil,
+                        Integer ehConsumidor,
+                        String coordenadas, String RG, Double saldo
+                        ) {
         this.idUsuario = idUsuario;
         this.nomeCompleto = nomeCompleto;
         this.CPF = CPF;
         this.dataNascimento = dataNascimento;
         this.complemento = complemento;
-        this.telefone = telefone;
         this.CEP = CEP;
         this.email = email;
         this.senha = senha;
+        this.telefone = telefone;
+        this.pontoReferencia = pontoReferencia;
+        this.fotoRG = fotoRG;
+        this.fotoPerfil = fotoPerfil;
+        this.ehConsumidor = ehConsumidor;
         this.coordenadas = coordenadas;
         this.RG = RG;
         this.saldo = saldo;
-        this.post = post;
     }
 
     public Integer getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
     public String getNomeCompleto() {
         return nomeCompleto;
-    }
-
-    public void setNomeCompleto(String nomeCompleto) {
-        this.nomeCompleto = nomeCompleto;
     }
 
     public String getCPF() {
         return CPF;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
-    }
-
     public LocalDate getDataNascimento() {
         return dataNascimento;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.dataNascimento = dataNascimento;
     }
 
     public String getComplemento() {
         return complemento;
     }
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
     public String getCEP() {
         return CEP;
     }
 
-    public void setCEP(String CEP) {
-        this.CEP = CEP;
-    }
     public String getPontoReferencia() {
         return pontoReferencia;
-    }
-
-    public void setPontoReferencia(String pontoReferencia) {
-        this.pontoReferencia = pontoReferencia;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getSenha() {
         return senha;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public String getFotoRG() {
+        return fotoRG;
+    }
+
+    public String getFotoPerfil() {
+        return fotoPerfil;
+    }
+
+    public Integer getEhConsumidor() {
+        return ehConsumidor;
     }
 
     public String getCoordenadas() {
         return coordenadas;
     }
 
-    public void setCoordenadas(String coordenadas) {
-        this.coordenadas = coordenadas;
-    }
-
     public String getRG() {
         return RG;
-    }
-
-    public void setRG(String RG) {
-        this.RG = RG;
     }
 
     public Double getSaldo() {
         return saldo;
     }
 
-    public void setSaldo(Double saldo) {
-        this.saldo = saldo;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
+    @Override
+    public String toString() {
+        return "UsuarioVisao{" +
+                "idUsuario=" + idUsuario +
+                ", nomeCompleto='" + nomeCompleto + '\'' +
+                ", CPF='" + CPF + '\'' +
+                ", dataNascimento=" + dataNascimento +
+                ", complemento='" + complemento + '\'' +
+                ", CEP='" + CEP + '\'' +
+                ", pontoReferencia='" + pontoReferencia + '\'' +
+                ", email='" + email + '\'' +
+                ", senha='" + senha + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", fotoRG='" + fotoRG + '\'' +
+                ", fotoPerfil='" + fotoPerfil + '\'' +
+                ", ehConsumidor=" + ehConsumidor +
+                ", coordenadas='" + coordenadas + '\'' +
+                ", RG='" + RG + '\'' +
+                ", saldo=" + saldo +
+                '}';
     }
 }

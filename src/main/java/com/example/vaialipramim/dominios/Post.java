@@ -23,7 +23,6 @@ public class Post {
     @Column(nullable = false)
     private String titulo;
 
-    @Future
     @Column(name = "data_hora_realizacao", nullable = false)
     private LocalDateTime dataHoraRealizacao;
 
@@ -43,12 +42,24 @@ public class Post {
     @Column(name = "limite_peso_entrega",nullable = false)
     private double limitePesoEntrega;
 
-    @Length(min = 10)
+    @Length(min = 4)
     @Column(name = "local_tarefa",nullable = false)
     private String localTarefa;
 
     @Column(name = "tempo_estimado_realizacao",nullable = false)
     private LocalTime tempoEstimadoRealizacao;
+
+    @Column(name = "foi_entregue")
+    private Integer foiEntregue;
+
+    @Column(name = "foi_aceito")
+    private Integer foiAceito;
+
+    @Column(name = "usuario_id")
+    private Integer usuarioId;
+
+    @Column(name = "solicitante_id")
+    private Integer solicitanteId;
 
     @ManyToOne
     private Pedido pedido;
@@ -59,6 +70,24 @@ public class Post {
 
     }
 
+    public Post(@Length(min = 5) String titulo,String dataHoraRealizacao, @Length(min = 10) String descricao,
+                 @Min(0) Double taxaEntrega, @Min(1) Integer limiteQuantidadeItens, @Min(0) double limitePesoEntrega,
+                 @Length(min = 5) String localTarefa, String tempoEstimadoRealizacao)
+                  {
+        this.titulo = titulo;
+        this.dataHoraRealizacao = LocalDateTime.parse(dataHoraRealizacao);
+        this.descricao = descricao;
+        this.taxaEntrega = taxaEntrega;
+        this.limiteQuantidadeItens = limiteQuantidadeItens;
+        this.limitePesoEntrega = limitePesoEntrega;
+        this.localTarefa = localTarefa;
+        this.tempoEstimadoRealizacao = LocalTime.parse(tempoEstimadoRealizacao);
+        this.foiEntregue = 0;
+        this.foiAceito = 0;
+        this.usuarioId = null;
+        this.solicitanteId = null;
+        this.pedido = null;
+    }
 
     //-----Getters-----
 
@@ -127,6 +156,30 @@ public class Post {
         this.localTarefa = localTarefa;
     }
 
+    public Integer getFoiEntregue() {
+        return foiEntregue;
+    }
+
+    public void setFoiEntregue(Integer foiEntregue) {
+        this.foiEntregue = foiEntregue;
+    }
+
+    public Integer getFoiAceito() {
+        return foiAceito;
+    }
+
+    public void setFoiAceito(Integer foiAceito) {
+        this.foiAceito = foiAceito;
+    }
+
+    public Integer getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Integer usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
     public LocalTime getTempoEstimadoRealizacao() {
         return tempoEstimadoRealizacao;
     }
@@ -143,6 +196,14 @@ public class Post {
         this.pedido = pedido;
     }
 
+    public Integer getSolicitanteId() {
+        return solicitanteId;
+    }
+
+    public void setSolicitanteId(Integer solicitanteId) {
+        this.solicitanteId = solicitanteId;
+    }
+
     public void setAll(Post post){
         this.titulo = post.getTitulo();
         this.dataHoraRealizacao = post.getDataHoraRealizacao();
@@ -151,6 +212,11 @@ public class Post {
         this.limiteQuantidadeItens = post.getLimiteQuantidadeItens();
         this.localTarefa = post.getLocalTarefa();
         this.tempoEstimadoRealizacao = post.getTempoEstimadoRealizacao();
+        this.foiEntregue = post.getFoiEntregue();
+        this.foiAceito = post.getFoiAceito();
+        this.pedido = post.getPedido();
+        this.usuarioId = post.getUsuarioId();
+        this.solicitanteId = post.getSolicitanteId();
     }
 
     @Override
@@ -165,6 +231,10 @@ public class Post {
                 ", limitePesoEntrega=" + limitePesoEntrega +
                 ", localTarefa='" + localTarefa + '\'' +
                 ", tempoEstimadoRealizacao=" + tempoEstimadoRealizacao +
+                ", foiEntregue=" + foiEntregue +
+                ", foiAceito=" + foiAceito +
+                ", usuarioId=" + usuarioId +
+                ", solicitanteId=" + solicitanteId +
                 ", pedido=" + pedido +
                 '}';
     }

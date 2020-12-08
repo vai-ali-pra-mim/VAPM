@@ -1,5 +1,6 @@
 package com.example.vaialipramim.controladores;
 
+import com.example.vaialipramim.Utils.FilaObj;
 import com.example.vaialipramim.dominios.Usuario;
 import com.example.vaialipramim.repositorios.UsuarioRepository;
 import com.example.vaialipramim.servicos.GravarUsuarioEmArquivoServico;
@@ -24,6 +25,7 @@ public class ControllerUsuario {
     @Autowired
     private UsuarioRepository repository;
 
+    //Traz todos os usuarios do banco
     @GetMapping
     public ResponseEntity getTodos() {
         List<Usuario> usuarios = repository.findAll();
@@ -35,6 +37,7 @@ public class ControllerUsuario {
         }
     }
 
+    //Traz uma versão resumida de todos os usuarios do banco
     @GetMapping("/visao")
     public ResponseEntity getTodosVisao() {
         List<UsuarioVisao> usuarios = repository.findAllSimples();
@@ -44,32 +47,35 @@ public class ControllerUsuario {
         } else {
             return ResponseEntity.ok().body(usuarios);
         }
-
     }
 
+    //Traz do banco todos os entregadores proximos a posicao do solicitante
     @GetMapping("/entregadores/{posicaoSolicitante}")
     public ResponseEntity getEntregadores(@PathVariable String posicaoSolicitante) {
         RealizarMatchingEntreUsuariosServico realizarMatching = new RealizarMatchingEntreUsuariosServico(repository, posicaoSolicitante);
-        return  realizarMatching.execute();
+        return realizarMatching.execute();
     }
 
     @GetMapping("/{id}")
+    //Traz do banco um usuario especifico
     public ResponseEntity getId(@PathVariable int id) {
         Optional<Usuario> usuario = repository.findById(id);
-       return ResponseEntity.of(usuario);
+        return ResponseEntity.of(usuario);
     }
 
     @PostMapping("/login")
+    //Traz do banco um usuario que tenha o email e senha passado no corpo da requisicao
     public ResponseEntity login(@RequestBody Usuario usuario) {
-        UsuarioLoginVisao usuarioEncontrado = repository.findByEmailESenha(usuario.getEmail(), usuario.getSenha());
+        UsuarioVisao usuarioEncontrado = repository.findByEmailESenha(usuario.getEmail(), usuario.getSenha());
 
-        if(usuarioEncontrado == null)
+        if (usuarioEncontrado == null)
             return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(usuarioEncontrado);
     }
 
     @DeleteMapping("/{id}")
+    //Deleta do banco um usuario especifico
     public ResponseEntity deleteId(@PathVariable int id) {
         Optional<Usuario> usuario = repository.findById(id);
         if (usuario.isPresent()) {
@@ -81,18 +87,19 @@ public class ControllerUsuario {
     }
 
     @PostMapping
+    //Cria um usuario no banco
     public ResponseEntity criaUsuario(@RequestBody @Valid Usuario usuario) {
-        try{
+        try {
             repository.save(usuario);
             return ResponseEntity.ok().build();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
     }
 
     @PatchMapping("/{id}/senha")
+    //altera a senha banco um usuario especifico
     public ResponseEntity alteraSenha(@PathVariable int id, @RequestBody @Valid Usuario novaSenha) {
         boolean existsUsuario = repository.existsById(id);
         if (existsUsuario) {
@@ -116,6 +123,7 @@ public class ControllerUsuario {
     }
 
     @PatchMapping("/{id}/endereco")
+    //altera o endereço banco um usuario especifico
     public ResponseEntity alteraEndereco(@PathVariable int id, @RequestBody @Valid Usuario novoEndereco) {
         boolean existsUsuario = repository.existsById(id);
         if (existsUsuario) {
@@ -140,6 +148,7 @@ public class ControllerUsuario {
     }
 
     @PatchMapping("/{id}/telefone")
+    //altera o telefone banco um usuario especifico
     public ResponseEntity alteraTelefone(@PathVariable int id, @RequestBody @Valid Usuario novoTelefone) {
         boolean existsUsuario = repository.existsById(id);
         if (existsUsuario) {
@@ -163,6 +172,7 @@ public class ControllerUsuario {
     }
 
     @GetMapping("/download")
+    //Faz download de um arquivo txt contendo todos os usuarios do banco
     public ResponseEntity getTodos(HttpServletResponse response) throws IOException {
         GravarUsuarioEmArquivoServico gravarUsuarioEmArquivoServico = new GravarUsuarioEmArquivoServico(repository, response);
 
@@ -170,52 +180,43 @@ public class ControllerUsuario {
     }
 
     @GetMapping("/saldo/{id}")
-    public ResponseEntity getSaldo(@PathVariable int id){
+    //traz o saldo em conta de um usuario especifico do banco
+    public ResponseEntity getSaldo(@PathVariable int id) {
         Optional<Usuario> usuario = repository.findById(id);
-        if(usuario.isPresent()){
-            List<Usuario> todos = repository.findAll();
-            for (Usuario usuarioCadastrado: todos){
-                if(usuarioCadastrado.getIdUsuario().equals(id)){
-                    return ResponseEntity.ok(usuarioCadastrado.getSaldo());
-                }
-            }
+
+        if (usuario.isPresent()) {
+            return ResponseEntity.ok(usuario.get().getSaldo());
         }
+
         return ResponseEntity.notFound().build();
     }
 
     @PatchMapping("{id}/depositar/{valor}")
-    public ResponseEntity depositarCredito(@PathVariable int id, @PathVariable  Double valor){
+    //deposita valor no saldo da conta de um usuario especifico do banco
+    public ResponseEntity depositarCredito(@PathVariable int id, @PathVariable Double valor) {
+        Optional<Usuario> usuario = repository.findById(id);
 
-         Optional<Usuario> usuario = repository.findById(1);
-         if(usuario.isPresent()){
-             List<Usuario> todos = repository.findAll();
-             for (Usuario usuarioAtual: todos){
-                 if(usuarioAtual.getIdUsuario() == id){
-                     usuarioAtual.depositarSaldo(valor);
-                     repository.save(usuarioAtual);
-                     return  ResponseEntity.ok(usuarioAtual.getSaldo());
-                 }
-             }
-         }
+        if (usuario.isPresent()) {
+            usuario.get().depositarSaldo(valor);
+            repository.save(usuario.get());
+            return ResponseEntity.ok(usuario.get().getSaldo());
+        }
 
         return ResponseEntity.notFound().build();
     }
 
     @PatchMapping("{id}/sacar/{valor}")
-    public ResponseEntity sacarCredito(@PathVariable int id, @PathVariable Double valor){
+    //saca valor no saldo da conta de um usuario especifico do banco
+    public ResponseEntity sacarCredito(@PathVariable int id, @PathVariable Double valor) {
+        Optional<Usuario> usuario = repository.findById(id);
 
-        Optional<Usuario> usuario = repository.findById(1);
-        if(usuario.isPresent()){
-            List<Usuario> todos = repository.findAll();
-            for (Usuario usuarioAtual: todos){
-                if(usuarioAtual.getIdUsuario() == id){
-                    usuarioAtual.sacarSaldo(valor);
-                    repository.save(usuarioAtual);
-                    return  ResponseEntity.ok(usuarioAtual.getSaldo());
-                }
-            }
+        if (usuario.isPresent()) {
+            usuario.get().sacarSaldo(valor);
+            repository.save(usuario.get());
+            return ResponseEntity.ok(usuario.get().getSaldo());
         }
 
         return ResponseEntity.notFound().build();
+
     }
 }

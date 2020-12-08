@@ -14,12 +14,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
-    @Query("select new com.example.vaialipramim.visoes.UsuarioVisao(c.idUsuario, c.nomeCompleto, c.CPF, c.dataNascimento, c.complemento, c.telefone, c.CEP, c.email, c.senha, c.coordenadas, c.RG, c.saldo, c.post) from Usuario c")
+   // c.idUsuario, c.nomeCompleto, c.CPF, c.dataNascimento, c.complemento,c.CEP, c.email,c.senha,c.telefone, c.pontoReferencia, c.fotoRG, c.fotoPerfil, c.ehConsumidor,c.coordenadas, c.saldo, c.RG
+
+    @Query("select new com.example.vaialipramim.visoes.UsuarioVisao(c.idUsuario, c.nomeCompleto, c.CPF, c.dataNascimento, c.complemento,c.CEP,c.email,c.senha,c.telefone, c.pontoReferencia, c.fotoRG, c.fotoPerfil,c.ehConsumidor,c.coordenadas,c.RG,c.saldo) from Usuario c")
     List<UsuarioVisao> findAllSimples();
 
-    @Query("select new com.example.vaialipramim.visoes.UsuarioVisao(c.idUsuario, c.nomeCompleto, c.CPF, c.dataNascimento, c.complemento, c.telefone, c.CEP, c.email, c.senha, c.coordenadas, c.RG, c.saldo, c.post) from Usuario c where id_usuario = :id")
+    @Query("select new com.example.vaialipramim.visoes.UsuarioVisao(c.idUsuario, c.nomeCompleto, c.CPF, c.dataNascimento, c.complemento,c.CEP,c.email,c.senha,c.telefone, c.pontoReferencia, c.fotoRG, c.fotoPerfil,c.ehConsumidor,c.coordenadas,c.RG,c.saldo) from Usuario c where id_usuario = :id")
     UsuarioVisao findByIdUsuarioVisao(@Param("id") int id);
 
-    @Query("select new com.example.vaialipramim.visoes.UsuarioLoginVisao(c.idUsuario, c.nomeCompleto, c.CPF, c.dataNascimento, c.complemento, c.telefone, c.CEP, c.email, c.senha, c.coordenadas, c.RG, c.saldo) from Usuario c where email = :email and senha = :senha")
-    UsuarioLoginVisao findByEmailESenha(@Param("email") String email, @Param("senha") String senha);
+    @Query("select new com.example.vaialipramim.visoes.UsuarioVisao(c.idUsuario, c.nomeCompleto, c.CPF, c.dataNascimento, c.complemento,c.CEP,c.email,c.senha,c.telefone, c.pontoReferencia, c.fotoRG, c.fotoPerfil,c.ehConsumidor,c.coordenadas,c.RG,c.saldo) from Usuario c where email = :email and senha = :senha")
+    UsuarioVisao findByEmailESenha(@Param("email") String email, @Param("senha") String senha);
 }

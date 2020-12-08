@@ -10,6 +10,10 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Integer> {
 
-    @Query("select new com.example.vaialipramim.visoes.PostVisao(c.idPost, c.titulo, c.dataHoraRealizacao, c.descricao, c.taxaEntrega, c.limiteQuantidadeItens, c.localTarefa, c.tempoEstimadoRealizacao) from Post c")
+    @Query("select new com.example.vaialipramim.visoes.PostVisao(c.idPost, c.titulo, c.dataHoraRealizacao," +
+            " c.descricao, c.taxaEntrega, c.limiteQuantidadeItens,c.limitePesoEntrega,  c.localTarefa," +
+            " c.tempoEstimadoRealizacao, c.foiEntregue, c.foiAceito, c.usuarioId, c.solicitanteId) from Post c")
     List<PostVisao> findAllSimples();
+
+
 }
