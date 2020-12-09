@@ -26,28 +26,37 @@ public class Usuario {
     @Column(name = "data_nascimento",nullable = false)
     private LocalDate dataNascimento;
 
-    @Column(nullable = false)
-    @Length(min = 3, max = 20)
-    private String complemento;
-
-    @Column(nullable = false)
-    @Length(min = 8, max = 9)
-    private String CEP;
-
     @Length(min = 7, max = 65)
     @Column(unique = true,nullable = false)
     private String email;
-
-    @Length(min = 7, max = 15)
-    @Column(nullable = false)
-    private String senha;
 
     @Length(min = 10, max = 11)
     @Column(nullable = false)
     private String telefone;
 
+    @Column(nullable = false)
+    @Length(min = 8, max = 9)
+    private String CEP;
+
+    @Column(nullable = false)
+    @Length(min = 3, max = 20)
+    private String complemento;
+
+    @Column()
+    private Double saldo;
+
+    @Column()
+    private String RG;
+
     @Column(name = "ponto_referencia")
     private String pontoReferencia;
+
+    @Length(min = 7, max = 15)
+    @Column(nullable = false)
+    private String senha;
+
+    @Column()
+    private String coordenadas;
 
     @Column(name = "foto_rg")
     private String fotoRG;
@@ -58,43 +67,29 @@ public class Usuario {
     @Column(name = "eh_consumidor")
     private Integer ehConsumidor;
 
-    @Column()
-    private String coordenadas;
-
-    @Column()
-    private String RG;
-
-    @Column()
-    private Double saldo;
-
     @ManyToOne()
     private Cartao cartao;
 
 
     //-----Construtor para auxiliar nos cadastros na classe "controller"-----
 
-    public Usuario(@Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF,
-                   @Past LocalDate dataNascimento, @Length(min = 3, max = 20) String complemento, @Length(min = 8, max = 9) String CEP,
-                   @Length(min = 7, max = 65) String email, @Length(min = 7, max = 15) String senha, @Length(min = 10, max = 11) String telefone,
-                   String pontoReferencia, String fotoRG, String fotoPerfil,
-                   Integer ehConsumidor, String coordenadas, String RG,
-                   Double saldo, Cartao cartao) {
 
+    public Usuario(@Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF, @Past LocalDate dataNascimento, @Length(min = 7, max = 65) String email, @Length(min = 10, max = 11) String telefone, @Length(min = 8, max = 9) String CEP, @Length(min = 3, max = 20) String complemento, Double saldo, String RG, String pontoReferencia, @Length(min = 7, max = 15) String senha, String coordenadas, String fotoRG, String fotoPerfil, Integer ehConsumidor, Cartao cartao) {
         this.nomeCompleto = nomeCompleto;
         this.CPF = CPF;
         this.dataNascimento = dataNascimento;
-        this.complemento = complemento;
-        this.CEP = CEP;
         this.email = email;
-        this.senha = senha;
         this.telefone = telefone;
+        this.CEP = CEP;
+        this.complemento = complemento;
+        this.saldo = saldo;
+        this.RG = RG;
         this.pontoReferencia = pontoReferencia;
+        this.senha = senha;
+        this.coordenadas = coordenadas;
         this.fotoRG = fotoRG;
         this.fotoPerfil = fotoPerfil;
         this.ehConsumidor = ehConsumidor;
-        this.coordenadas = coordenadas;
-        this.RG = RG;
-        this.saldo = saldo;
         this.cartao = cartao;
     }
 

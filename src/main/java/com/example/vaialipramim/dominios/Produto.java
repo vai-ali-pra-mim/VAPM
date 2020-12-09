@@ -13,7 +13,7 @@ public class Produto {
     @Column(name = "id_produto", nullable = false)
     private int idProduto;
 
-    @Length(min = 2, max = 25)
+    @Length(min = 2, max = 65)
     @Column(name = "nome_produto", nullable = false)
     private String nomeProduto;
 
@@ -28,12 +28,6 @@ public class Produto {
     @Length(min = 2, max = 25)
     @Column( nullable = false)
     private String marca;
-
-
-    @ManyToMany(mappedBy = "produtosDoPedido", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private Set<Pedido> estaNosPedidos;
-
-
 
     public Produto() {
 
@@ -86,4 +80,14 @@ public class Produto {
         setMarca(novoProduto.getMarca());
     }
 
+    @Override
+    public String toString() {
+        return "Produto{" +
+                "idProduto=" + idProduto +
+                ", nomeProduto='" + nomeProduto + '\'' +
+                ", tipoProduto='" + tipoProduto + '\'' +
+                ", valor=" + valor +
+                ", marca='" + marca + '\'' +
+                '}';
+    }
 }

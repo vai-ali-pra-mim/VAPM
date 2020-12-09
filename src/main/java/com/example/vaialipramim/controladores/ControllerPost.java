@@ -4,22 +4,15 @@ import com.example.vaialipramim.Utils.Adapter;
 import com.example.vaialipramim.Utils.ListaObjetos;
 import com.example.vaialipramim.dominios.Post;
 import com.example.vaialipramim.dominios.Produto;
-import com.example.vaialipramim.dominios.Usuario;
 import com.example.vaialipramim.repositorios.PostRepository;
-import com.example.vaialipramim.visoes.PostVisao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @CrossOrigin()
 @RestController
@@ -33,7 +26,7 @@ public class ControllerPost {
     // Endpoint pra retornar todos os posts
     @GetMapping()
     public ResponseEntity getPosts() {
-        Adapter adapter = new Adapter<Produto>(repository.findAllSimples());
+        Adapter adapter = new Adapter<Produto>(repository.findAll());
         ListaObjetos posts = adapter.getListaObjetos();
 
         if (posts.estaVazio()) {
@@ -106,12 +99,12 @@ public class ControllerPost {
     // Endpoint para retornar todos posts solicitados por um consumidor
     @GetMapping("/consumidor/{id}")
     public ResponseEntity retornaPostsConsumidor(@PathVariable int id) {
-        List<PostVisao> posts = repository.findAllSimples();
-        List<PostVisao> postsSolicitadosConsumidor = new ArrayList<>();
+        List<Post> posts = repository.findAll();
+        List<Post> postsSolicitadosConsumidor = new ArrayList<>();
 
-        for (PostVisao postVisao : posts) {
-            if (postVisao.getSolicitanteId() != null && postVisao.getSolicitanteId().equals(id)) {
-                postsSolicitadosConsumidor.add(postVisao);
+        for (Post post : posts) {
+            if (post.getSolicitanteId() != null && post.getSolicitanteId().equals(id)) {
+                postsSolicitadosConsumidor.add(post);
             }
         }
 

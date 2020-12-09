@@ -61,8 +61,8 @@ public class Post {
     @Column(name = "solicitante_id")
     private Integer solicitanteId;
 
-    @ManyToOne
-    private Pedido pedido;
+    @Column(name = "pedido_id")
+    private Integer pedidoId;
 
     //-----Construtor-----
 
@@ -86,7 +86,7 @@ public class Post {
         this.foiAceito = 0;
         this.usuarioId = null;
         this.solicitanteId = null;
-        this.pedido = null;
+        this.pedidoId = null;
     }
 
     //-----Getters-----
@@ -188,12 +188,12 @@ public class Post {
         this.tempoEstimadoRealizacao = tempoEstimadoRealizacao;
     }
 
-    public Pedido getPedido() {
-        return pedido;
+    public Integer getPedidoId() {
+        return pedidoId;
     }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
+    public void setPedidoId(Integer postId) {
+        this.pedidoId = postId;
     }
 
     public Integer getSolicitanteId() {
@@ -214,7 +214,7 @@ public class Post {
         this.tempoEstimadoRealizacao = post.getTempoEstimadoRealizacao();
         this.foiEntregue = post.getFoiEntregue();
         this.foiAceito = post.getFoiAceito();
-        this.pedido = post.getPedido();
+        this.pedidoId = post.getPedidoId();
         this.usuarioId = post.getUsuarioId();
         this.solicitanteId = post.getSolicitanteId();
     }
@@ -235,7 +235,7 @@ public class Post {
                 ", foiAceito=" + foiAceito +
                 ", usuarioId=" + usuarioId +
                 ", solicitanteId=" + solicitanteId +
-                ", pedido=" + pedido +
+                ", pedidoId=" + pedidoId +
                 '}';
     }
 

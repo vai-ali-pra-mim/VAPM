@@ -13,11 +13,4 @@ import javax.persistence.EntityManager;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
 
-//    @Transactional
-//    @Modifying
-//    @Query(value = "delete from PEDIDO_TEM_PRODUTO where id_pedido = :id",nativeQuery = true)
-//    void deletePedido(@Param("id")String id);
-
-
-
 }
