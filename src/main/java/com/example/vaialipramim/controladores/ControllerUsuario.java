@@ -105,7 +105,6 @@ public class ControllerUsuario {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-
     }
 
     @PatchMapping("/{id}/senha")
@@ -227,7 +226,6 @@ public class ControllerUsuario {
         }
 
         return ResponseEntity.notFound().build();
-
     }
 
     @PostMapping("/arquivo")
@@ -260,7 +258,6 @@ public class ControllerUsuario {
             Integer ehConsumidor = Integer.parseInt(guardar[i].substring(317,318).trim());
             Integer idCartao = Integer.parseInt(guardar[i].substring(319,320).trim());
 
-
             Optional<Cartao> cartao = cartaoRepository.findById(idCartao);
 
             Usuario usuario = new Usuario(nomeCompleto,CPF,dataNascimento,email,telefone,CEP,complemento,saldo,
@@ -268,11 +265,7 @@ public class ControllerUsuario {
 
             repository.save(usuario);
         }
-
-
         return ResponseEntity.ok().build();
 
     }
-
-
 }

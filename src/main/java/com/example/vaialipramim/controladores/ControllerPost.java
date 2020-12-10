@@ -112,7 +112,6 @@ public class ControllerPost {
             return ResponseEntity.noContent().build();
 
         return ResponseEntity.ok(postsSolicitadosConsumidor);
-
     }
 
     @GetMapping("status/{id}")
@@ -131,7 +130,6 @@ public class ControllerPost {
     // Endpoint para cadastrar Post
     @PostMapping()
     public ResponseEntity cadastrarPost(@RequestBody @Valid Post novoPost) {
-
         repository.save(novoPost);
 
         return ResponseEntity.ok().build();
@@ -151,7 +149,7 @@ public class ControllerPost {
     }
 
     @PutMapping("/status/{id}")
-    // Endpoint para mudar status de entegue de um post especifico
+    // Endpoint para mudar status de entregue de um post especifico
     public ResponseEntity editarStatusEntregue(@PathVariable Integer id) {
         Optional<Post> post = repository.findById(id);
         if (post.isPresent()) {
@@ -169,8 +167,27 @@ public class ControllerPost {
         return ResponseEntity.of(post);
     }
 
+    @PutMapping("/status-espera/{id}")
+    // Endpoint para mudar status de espera de um post especifico
+    public ResponseEntity editarStatusEspera(@PathVariable Integer id) {
+        Optional<Post> post = repository.findById(id);
+        if (post.isPresent()) {
+            Post postProcurado = post.get();
+            Integer statusAtual;
+            if (postProcurado.getEstaEmEspera() == 0)
+                statusAtual = 1;
+            else
+                statusAtual = 0;
+
+            postProcurado.setEstaEmEspera(statusAtual);
+            repository.save(postProcurado);
+        }
+
+        return ResponseEntity.of(post);
+    }
+
     @PutMapping("/status/{id}/{solicitanteId}")
-    // Endpoint para mudar status de entegue de um post especifico
+    // Endpoint para mudar status de aceite de um post especifico
     public ResponseEntity editarStatusAceito(@PathVariable Integer id,@PathVariable Integer solicitanteId) {
         Optional<Post> post = repository.findById(id);
         if (post.isPresent()) {
@@ -189,7 +206,6 @@ public class ControllerPost {
         return ResponseEntity.of(post);
     }
 
-
     //Endpoint para excluir um post
     @DeleteMapping("/{id}")
     public ResponseEntity deletePost(@PathVariable Integer id) {
@@ -201,6 +217,5 @@ public class ControllerPost {
         } else {
             return ResponseEntity.notFound().build();
         }
-
     }
 }
