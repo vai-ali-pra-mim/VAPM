@@ -46,6 +46,9 @@ public class Post {
     @Column(name = "local_tarefa",nullable = false)
     private String localTarefa;
 
+    @Column(name = "esta_em_espera")
+    private Integer estaEmEspera;
+
     @Column(name = "tempo_estimado_realizacao",nullable = false)
     private LocalTime tempoEstimadoRealizacao;
 
@@ -80,6 +83,7 @@ public class Post {
         this.taxaEntrega = taxaEntrega;
         this.limiteQuantidadeItens = limiteQuantidadeItens;
         this.limitePesoEntrega = limitePesoEntrega;
+        this.estaEmEspera = 0;
         this.localTarefa = localTarefa;
         this.tempoEstimadoRealizacao = LocalTime.parse(tempoEstimadoRealizacao);
         this.foiEntregue = 0;
@@ -146,6 +150,13 @@ public class Post {
 
     public void setLimitePesoEntrega(double limitePesoEntrega) {
         this.limitePesoEntrega = limitePesoEntrega;
+    }
+
+    public Integer getEstaEmEspera() {
+        return estaEmEspera;
+    }
+    public void setEstaEmEspera(Integer estaEmEspera) {
+        this.estaEmEspera = estaEmEspera;
     }
 
     public String getLocalTarefa() {
@@ -230,6 +241,7 @@ public class Post {
                 ", limiteQuantidadeItens=" + limiteQuantidadeItens +
                 ", limitePesoEntrega=" + limitePesoEntrega +
                 ", localTarefa='" + localTarefa + '\'' +
+                ", estaEmEspera=" + estaEmEspera +
                 ", tempoEstimadoRealizacao=" + tempoEstimadoRealizacao +
                 ", foiEntregue=" + foiEntregue +
                 ", foiAceito=" + foiAceito +
@@ -239,5 +251,5 @@ public class Post {
                 '}';
     }
 
-//-----Fim da classe-----
+    //-----Fim da classe-----
 }
