@@ -115,6 +115,19 @@ public class ControllerPost {
 
     }
 
+    @GetMapping("status/{id}")
+    public ResponseEntity statusEspera(@PathVariable Integer id){
+        Optional<Post>post = repository.findById(id);
+        if (post.isPresent()){
+            if (post.get().getEstaEmEspera().equals(1))
+                return ResponseEntity.ok().build();
+            else
+               return ResponseEntity.status(406).build();
+
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     // Endpoint para cadastrar Post
     @PostMapping()
     public ResponseEntity cadastrarPost(@RequestBody @Valid Post novoPost) {
