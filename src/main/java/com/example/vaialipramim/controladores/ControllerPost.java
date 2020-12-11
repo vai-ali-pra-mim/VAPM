@@ -115,13 +115,13 @@ public class ControllerPost {
     }
 
     @GetMapping("status/{id}")
-    public ResponseEntity statusEspera(@PathVariable Integer id){
-        Optional<Post>post = repository.findById(id);
-        if (post.isPresent()){
+    public ResponseEntity statusEspera(@PathVariable Integer id) {
+        Optional<Post> post = repository.findById(id);
+        if (post.isPresent()) {
             if (post.get().getEstaEmEspera().equals(1))
                 return ResponseEntity.ok().build();
             else
-               return ResponseEntity.status(406).build();
+                return ResponseEntity.status(406).build();
 
         }
         return ResponseEntity.notFound().build();
@@ -148,59 +148,73 @@ public class ControllerPost {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/status/{id}")
+    @PutMapping("/status-entregue/{id}/{cliente}")
     // Endpoint para mudar status de entregue de um post especifico
-    public ResponseEntity editarStatusEntregue(@PathVariable Integer id) {
+    public ResponseEntity editarStatusEntregue(@PathVariable Integer id, @PathVariable String cliente) {
         Optional<Post> post = repository.findById(id);
         if (post.isPresent()) {
             Post postProcurado = post.get();
             Integer statusAtual;
-            if (postProcurado.getFoiEntregue() == 0)
+            if (postProcurado.getFoiEntregue() == 0 && cliente.equals("consumidor"))
                 statusAtual = 1;
-            else
+            else if (postProcurado.getFoiEntregue() == 1 && cliente.equals("entregador"))
                 statusAtual = 0;
+            else
+                return ResponseEntity.badRequest().build();
 
             postProcurado.setFoiEntregue(statusAtual);
             repository.save(postProcurado);
+            return ResponseEntity.ok(post.get().getFoiEntregue());
         }
 
         return ResponseEntity.of(post);
     }
 
-    @PutMapping("/status-espera/{id}")
+    @PutMapping("/status-espera/{id}/{cliente}")
     // Endpoint para mudar status de espera de um post especifico
-    public ResponseEntity editarStatusEspera(@PathVariable Integer id) {
+    public ResponseEntity editarStatusEspera(@PathVariable Integer id, @PathVariable String cliente) {
         Optional<Post> post = repository.findById(id);
+
         if (post.isPresent()) {
             Post postProcurado = post.get();
             Integer statusAtual;
-            if (postProcurado.getEstaEmEspera() == 0)
+            if (postProcurado.getEstaEmEspera() == 0 && cliente.equals("consumidor"))
                 statusAtual = 1;
-            else
+            else if (postProcurado.getEstaEmEspera() == 1 && cliente.equals("entregador"))
                 statusAtual = 0;
+            else
+                return ResponseEntity.badRequest().build();
 
             postProcurado.setEstaEmEspera(statusAtual);
             repository.save(postProcurado);
+            return ResponseEntity.ok(post.get().getEstaEmEspera());
         }
 
-        return ResponseEntity.of(post);
+        return ResponseEntity.notFound().build();
     }
 
-    @PutMapping("/status/{id}/{solicitanteId}")
+    @PutMapping("/status-aceite/{id}/{solicitanteId}/{cliente}")
     // Endpoint para mudar status de aceite de um post especifico
-    public ResponseEntity editarStatusAceito(@PathVariable Integer id,@PathVariable Integer solicitanteId) {
+    public ResponseEntity editarStatusAceito(@PathVariable Integer id, @PathVariable Integer solicitanteId,
+                                             @PathVariable String cliente) {
         Optional<Post> post = repository.findById(id);
         if (post.isPresent()) {
             Post postProcurado = post.get();
             Integer statusAtual;
-            if (postProcurado.getFoiAceito() == 0)
+            if (postProcurado.getFoiAceito() == 0 && cliente.equals("consumidor"))
                 statusAtual = 1;
-            else
+            else if (postProcurado.getFoiAceito() == 1 && cliente.equals("entregador"))
                 statusAtual = 0;
+            else
+                return ResponseEntity.badRequest().build();
 
             postProcurado.setFoiAceito(statusAtual);
-            postProcurado.setSolicitanteId(solicitanteId);
+            if (solicitanteId.equals(9999))
+                postProcurado.setSolicitanteId(null);
+            else
+                postProcurado.setSolicitanteId(solicitanteId);
             repository.save(postProcurado);
+            return ResponseEntity.ok(post.get().getFoiAceito());
         }
 
         return ResponseEntity.of(post);

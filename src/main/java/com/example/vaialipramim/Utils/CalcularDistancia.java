@@ -8,7 +8,7 @@ public class CalcularDistancia {
 
     public  static double distanciaEmKMEntreCoordenadas(Coordenadas coordenadasSolicitante, Coordenadas coordenadasEntregador){
 
-        int RADIUS = 6371;
+        final int RADIUS = 6371;
 
         double latitudeCoordenadasSolicitante = coordenadasSolicitante.getLatitude();
         double longitudeCoordenadasSolicitante = coordenadasSolicitante.getLongitude();

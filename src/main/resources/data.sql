@@ -14,7 +14,6 @@ insert into produto( nome_produto,tipo_produto, valor, marca) values
 ( 'Café Pilão Tradicional Almofada 500g','alimento', 10.29, 'Pilão'),
 ( 'Leite Integral 1 Litro','alimento', 12.3, 'Piracanjuba');
 
-
 insert into cartao(nome_titular,numero_cartao,tipo_cartao,bandeira,CVV,CPF,data_validade) values
 ( 'Antônio Mello', 5201183672884483, 'Crédito', 'Mastercard', '435', '04184838090', '03/23'),
 ( 'Antônio Mello', 5290633166314845, 'Débito', 'Mastercard', '345', '04184838090', '01/23'),
@@ -44,7 +43,7 @@ CEP,ponto_referencia,complemento, foto_rg, foto_perfil, eh_consumidor, coordenad
 insert into post( titulo, data_hora_realizacao, descricao, taxa_entrega,limite_quantidade_item,
 limite_peso_entrega, local_tarefa, esta_em_espera,solicitante_id, tempo_estimado_realizacao, usuario_id, pedido_id,foi_entregue,foi_aceito) values
 ( 'Comprar Pão', '2020-12-15T10:12:30', 'Estou indo comprar pão', 1.76, 2,3.5 ,'Mercado do zé',0,null, '00:20:30', 8, null,0,0),
-( 'Comprar Doril', '2020-12-15T10:18:30', 'Estou indo comprar Doril', 2.20, 4,2.3, 'Loja do Marcos',0,1, '00:45:30', 8, null,0,0),
+( 'Comprar Doril', '2020-12-15T10:18:30', 'Estou indo comprar Doril', 2.20, 4,2.3, 'Loja do Marcos',0,null, '00:45:30', 8, null,0,0),
 ( 'Comprar Xarope pra tosse', '2020-12-15T10:15:20', 'Estou indo comprar farinha', 1.50, 5,4.75 ,'Drogasil',0,null, '00:30:30', 9, null,0,0),
 ( 'Comprar Leite', '2020-10-26T10:17:15', 'Estou indo comprar Leite', 3.76, 2,3.5 ,'Extra',0, null,'00:20:30',10,null,0,0),
 ( 'Comprar Atroveran', '2020-10-26T10:12:40', 'Estou indo comprar Atroveran', 1.95, 4,2.3, 'Drogasil',0, null, '00:45:30',11,null,0,0),
