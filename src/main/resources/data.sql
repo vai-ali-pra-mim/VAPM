@@ -23,7 +23,7 @@ insert into cartao(nome_titular,numero_cartao,tipo_cartao,bandeira,CVV,CPF,data_
 
 insert into usuario(nome_completo, CPF, data_nascimento,
 CEP,ponto_referencia,complemento, foto_rg, foto_perfil, eh_consumidor, coordenadas, telefone, email, senha, RG, saldo, cartao_id_cartao) values
-( 'José Augusto Sanches','04187548090','1947-04-13', '02913-000',null, 'Nº490', null, null, 1, '-23.504460475448486, -46.714190454434885', '11940987989','jose.sanches@gmail.com', 'joselito',  null, 0.0,1),
+( 'José Antônio Sanches','04187548090','1947-04-13', '02913-000',null, 'Nº490', null, null, 1, '-23.504460475448486, -46.714190454434885', '11940987989','jose.sanches@gmail.com', 'joselito',  null, 0.0,1),
 ( 'Antônio Mello','04184838090','1957-04-13', '02913-000',null, 'Nº450', null, null, 1, '-23.504592088, -46.7138931076', '11940405989','Antonio.melo@gmail.com', 'anto32snci49',  null, 0.0,1),
 ( 'Susana B. Mattos','98638422067','1952-12-03', '02913-030',null, 'Nº370', null, null, 1,'-23.50508349488, -46.7129489558','11491939245','Mattos.susana@gmail.com', 'Wz2WhHRqGf9q',  null, 0.0,1),
 ( 'João Pessoa','76881237565','1975-11-11', '02915-100',null, 'Nº398',null, null, 1,'-23.4989735141, -46.7107743342','11783010395','joao@gmail.com', 'joao123', '216976573', 3.82,4),
@@ -43,14 +43,14 @@ CEP,ponto_referencia,complemento, foto_rg, foto_perfil, eh_consumidor, coordenad
 insert into post( titulo, data_hora_realizacao, descricao, taxa_entrega,limite_quantidade_item,
 limite_peso_entrega, local_tarefa, esta_em_espera,solicitante_id, tempo_estimado_realizacao, usuario_id, pedido_id,foi_entregue,foi_aceito) values
 ( 'Comprar Pão', '2020-12-15T10:12:30', 'Estou indo comprar pão', 1.76, 2,3.5 ,'Mercado do zé',0,null, '00:20:30', 8, null,0,0),
-( 'Comprar Doril', '2020-12-15T10:18:30', 'Estou indo comprar Doril', 2.20, 4,2.3, 'Loja do Marcos',0,null, '00:45:30', 8, null,0,0),
-( 'Comprar Xarope pra tosse', '2020-12-15T10:15:20', 'Estou indo comprar farinha', 1.50, 5,4.75 ,'Drogasil',0,null, '00:30:30', 9, null,0,0),
-( 'Comprar Leite', '2020-10-26T10:17:15', 'Estou indo comprar Leite', 3.76, 2,3.5 ,'Extra',0, null,'00:20:30',10,null,0,0),
-( 'Comprar Atroveran', '2020-10-26T10:12:40', 'Estou indo comprar Atroveran', 1.95, 4,2.3, 'Drogasil',0, null, '00:45:30',11,null,0,0),
-( 'Comprar Conhaque', '2020-10-26T10:08:00', 'Estou indo comprar Conhaque', 3.50, 4,3.3, 'Extra',0, null, '00:45:30',12,null,0,0),
-( 'Comprar Chumbinho ', '2020-10-26T10:13:30', 'Estou indo comprar Chumbinho...', 1.50, 1,4.75 ,'Petshop da Maria',0,null, '00:30:30',11,null,0,0),
-( 'Comprar Desodorante', '2020-10-26T10:12:40', 'Estou indo comprar Desodorante', 1.75, 4,2.3, 'Drogasil',0,null, '00:45:30',13,null,0,0),
-( 'Comprar Chinelo', '2020-10-27T10:08:00', 'Estou indo comprar Chinelo', 3.11, 4,3.3, 'Extra',0,null, '00:45:30',9,null,0,0);
+( 'Comprar Doril', '2020-12-15T10:18:30', 'Estou indo comprar doril', 2.20, 4,2.3, 'Loja do Marcos',0,null, '00:45:30', 8, null,0,0),
+( 'Comprar Xarope pra tosse', '2020-12-15T10:15:20', 'Estou indo comprar xarope pra tosse', 1.50, 5,4.75 ,'Drogasil',0,null, '00:30:30', 9, null,0,0),
+( 'Comprar Leite', '2020-10-26T10:17:15', 'Estou indo comprar leite', 3.76, 2,3.5 ,'Extra',0, null,'00:20:30',10,null,0,0),
+( 'Comprar Atroveran', '2020-10-26T10:12:40', 'Estou indo comprar atroveran', 1.95, 4,2.3, 'Drogasil',0, null, '00:45:30',11,null,0,0),
+( 'Comprar Conhaque', '2020-10-26T10:08:00', 'Estou indo comprar conhaque', 3.50, 4,3.3, 'Extra',0, null, '00:45:30',12,null,0,0),
+( 'Comprar Ração para gato ', '2020-10-26T10:13:30', 'Estou indo comprar ração para gato', 1.50, 1,4.75 ,'Petshop da Maria',0,null, '00:30:30',11,null,0,0),
+( 'Comprar Desodorante', '2020-10-26T10:12:40', 'Estou indo comprar desodorante', 1.75, 4,2.3, 'Drogasil',0,null, '00:45:30',13,null,0,0),
+( 'Comprar Chinelo', '2020-10-27T10:08:00', 'Estou indo comprar chinelo', 3.11, 4,3.3, 'Extra',0,null, '00:45:30',9,null,0,0);
 
 
 ----------------------------------------------------------------------------------------------------------------
