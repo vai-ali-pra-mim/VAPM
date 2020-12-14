@@ -6,6 +6,9 @@ public class FilaObj<T>{
     int tamanho;
     private T[] fila;
 
+    public int getTamanho() {
+        return tamanho;
+    }
 
     //constructor
     public FilaObj(int capacidade){

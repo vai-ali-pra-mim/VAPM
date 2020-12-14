@@ -1,6 +1,7 @@
 package com.example.vaialipramim.controladores;
 
 import com.example.vaialipramim.Utils.FilaObj;
+import com.example.vaialipramim.Utils.PilhaObj;
 import com.example.vaialipramim.dominios.Cartao;
 import com.example.vaialipramim.dominios.Usuario;
 import com.example.vaialipramim.repositorios.CartaoRepository;
@@ -12,6 +13,8 @@ import com.example.vaialipramim.visoes.UsuarioVisao;
 import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,10 +27,22 @@ import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 
+@EnableScheduling()
 @CrossOrigin()
 @RestController
 @RequestMapping("/usuarios")
 public class ControllerUsuario {
+
+    private FilaObj<Usuario> usuariosFilaObj = new FilaObj<>(100);
+
+    @Scheduled(fixedRate = 1500)
+    public void inserirNoBanco(){
+        if(!usuariosFilaObj.isEmpty()){
+            Usuario usuario = usuariosFilaObj.poll();
+            repository.save(usuario);
+            System.out.println(usuario + "Inserido");
+        }
+    }
 
     @Autowired
     private UsuarioRepository repository;
@@ -46,7 +61,6 @@ public class ControllerUsuario {
             return ResponseEntity.ok().body(usuarios);
         }
     }
-
     //Traz uma versão resumida de todos os usuarios do banco
     @GetMapping("/visao")
     public ResponseEntity getTodosVisao() {
@@ -73,6 +87,14 @@ public class ControllerUsuario {
         return ResponseEntity.of(usuario);
     }
 
+    @GetMapping("/download")
+    //Faz download de um arquivo txt contendo todos os usuarios do banco
+    public ResponseEntity getTodos(HttpServletResponse response) throws IOException {
+        GravarUsuarioEmArquivoServico gravarUsuarioEmArquivoServico = new GravarUsuarioEmArquivoServico(repository, response);
+
+        return ResponseEntity.ok(gravarUsuarioEmArquivoServico.execute());
+    }
+
     @PostMapping("/login")
     //Traz do banco um usuario que tenha o email e senha passado no corpo da requisicao
     public ResponseEntity login(@RequestBody Usuario usuario) {
@@ -82,18 +104,6 @@ public class ControllerUsuario {
             return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(usuarioEncontrado);
-    }
-
-    @DeleteMapping("/{id}")
-    //Deleta do banco um usuario especifico
-    public ResponseEntity deleteId(@PathVariable int id) {
-        Optional<Usuario> usuario = repository.findById(id);
-        if (usuario.isPresent()) {
-            repository.deleteById(id);
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
     }
 
     @PostMapping
@@ -180,13 +190,7 @@ public class ControllerUsuario {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/download")
-    //Faz download de um arquivo txt contendo todos os usuarios do banco
-    public ResponseEntity getTodos(HttpServletResponse response) throws IOException {
-        GravarUsuarioEmArquivoServico gravarUsuarioEmArquivoServico = new GravarUsuarioEmArquivoServico(repository, response);
 
-        return ResponseEntity.ok(gravarUsuarioEmArquivoServico.execute());
-    }
 
     @GetMapping("/saldo/{id}")
     //traz o saldo em conta de um usuario especifico do banco
@@ -263,9 +267,20 @@ public class ControllerUsuario {
             Usuario usuario = new Usuario(nomeCompleto,CPF,dataNascimento,email,telefone,CEP,complemento,saldo,
                     RG,pontoReferencia,senha,coordenadas,fotoRG,fotoPerfil,ehConsumidor,cartao.get());
 
-            repository.save(usuario);
+            usuariosFilaObj.insert(usuario);
         }
         return ResponseEntity.ok().build();
+    }
 
+    @DeleteMapping("/{id}")
+    //Deleta do banco um usuario especifico
+    public ResponseEntity deleteId(@PathVariable int id) {
+        Optional<Usuario> usuario = repository.findById(id);
+        if (usuario.isPresent()) {
+            repository.deleteById(id);
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
