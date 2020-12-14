@@ -34,11 +34,13 @@ import static org.springframework.http.ResponseEntity.badRequest;
 public class ControllerUsuario {
 
     private FilaObj<Usuario> usuariosFilaObj = new FilaObj<>(100);
+    private PilhaObj<Usuario> usuarioPilhaObj = new PilhaObj<>(100);
 
-    @Scheduled(fixedRate = 1500)
+    @Scheduled(fixedRate = 2500)
     public void inserirNoBanco(){
         if(!usuariosFilaObj.isEmpty()){
             Usuario usuario = usuariosFilaObj.poll();
+            usuarioPilhaObj.push(usuario);
             repository.save(usuario);
             System.out.println(usuario + "Inserido");
         }
@@ -85,6 +87,19 @@ public class ControllerUsuario {
     public ResponseEntity getId(@PathVariable int id) {
         Optional<Usuario> usuario = repository.findById(id);
         return ResponseEntity.of(usuario);
+    }
+
+    @DeleteMapping("/desfazer")
+    //Traz do banco um usuario especifico
+    public ResponseEntity desfazerUm() {
+        if(!usuarioPilhaObj.isEmpty()){
+            Usuario usuario = usuarioPilhaObj.pop();
+            repository.deleteById(usuario.getIdUsuario());
+            return ResponseEntity.ok().build();
+        }
+
+        return ResponseEntity.notFound().build();
+
     }
 
     @GetMapping("/download")
