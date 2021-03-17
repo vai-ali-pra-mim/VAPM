@@ -39,12 +39,11 @@ public class ControllerPedido {
         }
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity getId(@PathVariable int id) {
         Optional<Pedido> pedido = repository.findById(id);
-
         return ResponseEntity.of(pedido);
-
     }
 
     @PostMapping()

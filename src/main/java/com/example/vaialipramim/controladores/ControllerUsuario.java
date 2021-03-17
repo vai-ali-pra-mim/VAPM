@@ -2,30 +2,19 @@ package com.example.vaialipramim.controladores;
 
 import com.example.vaialipramim.Utils.FilaObj;
 import com.example.vaialipramim.Utils.PilhaObj;
-import com.example.vaialipramim.dominios.Cartao;
 import com.example.vaialipramim.dominios.Usuario;
 import com.example.vaialipramim.repositorios.CartaoRepository;
 import com.example.vaialipramim.repositorios.UsuarioRepository;
-import com.example.vaialipramim.servicos.GravarUsuarioEmArquivoServico;
-import com.example.vaialipramim.servicos.RealizarMatchingEntreUsuariosServico;
-import com.example.vaialipramim.visoes.UsuarioLoginVisao;
 import com.example.vaialipramim.visoes.UsuarioVisao;
-import org.apache.logging.log4j.message.StringFormattedMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.io.*;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import static org.springframework.http.ResponseEntity.badRequest;
 
 @EnableScheduling()
 @CrossOrigin()
@@ -75,13 +64,6 @@ public class ControllerUsuario {
         }
     }
 
-    //Traz do banco todos os entregadores proximos a posicao do solicitante
-    @GetMapping("/entregadores/{posicaoSolicitante}")
-    public ResponseEntity getEntregadores(@PathVariable String posicaoSolicitante) {
-        RealizarMatchingEntreUsuariosServico realizarMatching = new RealizarMatchingEntreUsuariosServico(repository, posicaoSolicitante);
-        return realizarMatching.execute();
-    }
-
     @GetMapping("/{id}")
     //Traz do banco um usuario especifico
     public ResponseEntity getId(@PathVariable int id) {
@@ -99,15 +81,6 @@ public class ControllerUsuario {
         }
 
         return ResponseEntity.notFound().build();
-
-    }
-
-    @GetMapping("/download")
-    //Faz download de um arquivo txt contendo todos os usuarios do banco
-    public ResponseEntity getTodos(HttpServletResponse response) throws IOException {
-        GravarUsuarioEmArquivoServico gravarUsuarioEmArquivoServico = new GravarUsuarioEmArquivoServico(repository, response);
-
-        return ResponseEntity.ok(gravarUsuarioEmArquivoServico.execute());
     }
 
     @PostMapping("/login")
@@ -205,8 +178,6 @@ public class ControllerUsuario {
         return ResponseEntity.notFound().build();
     }
 
-
-
     @GetMapping("/saldo/{id}")
     //traz o saldo em conta de um usuario especifico do banco
     public ResponseEntity getSaldo(@PathVariable int id) {
@@ -245,46 +216,6 @@ public class ControllerUsuario {
         }
 
         return ResponseEntity.notFound().build();
-    }
-
-    @PostMapping("/arquivo")
-    public ResponseEntity subirArquivo(@RequestParam("arquivo") MultipartFile arquivo) throws IOException{
-        if (arquivo.isEmpty()){
-            return badRequest().body("Arquivo não enviado!");
-        }
-
-        System.out.println("Recebendo um arquivo do tipo" + arquivo.getContentType());
-
-        String conteudo = new String(arquivo.getBytes(), "UTF-8");
-        String[] guardar = conteudo.split("\n");
-
-        for (int i = 1; i < (guardar.length - 1) ; i++) {
-
-            String nomeCompleto = guardar[i].substring(02,61).trim();
-            String CPF = guardar[i].substring(62,73);
-            LocalDate dataNascimento =LocalDate.parse(guardar[i].substring(73,83).trim()) ;
-            String email = guardar[i].substring(83,147).trim();
-            String telefone = guardar[i].substring(148,158).trim();
-            String CEP = guardar[i].substring(159,167).trim();
-            String complemento = guardar[i].substring(168,186).trim();
-            Double saldo =Double.parseDouble(guardar[i].substring(188,195).trim()) ;
-            String RG = guardar[i].substring(195,204).trim();
-            String pontoReferencia = guardar[i].substring(204,263).trim();
-            String senha = guardar[i].substring(264,278).trim();
-            String coordenadas = guardar[i].substring(279,308).trim();
-            String fotoRG = guardar[i].substring(309,313).trim();
-            String fotoPerfil = guardar[i].substring(313,317).trim();
-            Integer ehConsumidor = Integer.parseInt(guardar[i].substring(317,318).trim());
-            Integer idCartao = Integer.parseInt(guardar[i].substring(319,320).trim());
-
-            Optional<Cartao> cartao = cartaoRepository.findById(idCartao);
-
-            Usuario usuario = new Usuario(nomeCompleto,CPF,dataNascimento,email,telefone,CEP,complemento,saldo,
-                    RG,pontoReferencia,senha,coordenadas,fotoRG,fotoPerfil,ehConsumidor,cartao.get());
-
-            usuariosFilaObj.insert(usuario);
-        }
-        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

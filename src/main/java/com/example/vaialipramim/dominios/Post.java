@@ -58,14 +58,12 @@ public class Post {
     @Column(name = "foi_aceito")
     private Integer foiAceito;
 
-    @Column(name = "usuario_id")
-    private Integer usuarioId;
+    @Column(name = "entregador_id")
+    private Integer entregadorId;
 
     @Column(name = "solicitante_id")
     private Integer solicitanteId;
 
-    @Column(name = "pedido_id")
-    private Integer pedidoId;
 
     //-----Construtor-----
 
@@ -88,9 +86,8 @@ public class Post {
         this.tempoEstimadoRealizacao = LocalTime.parse(tempoEstimadoRealizacao);
         this.foiEntregue = 0;
         this.foiAceito = 0;
-        this.usuarioId = null;
+        this.entregadorId = null;
         this.solicitanteId = null;
-        this.pedidoId = null;
     }
 
     //-----Getters-----
@@ -183,12 +180,12 @@ public class Post {
         this.foiAceito = foiAceito;
     }
 
-    public Integer getUsuarioId() {
-        return usuarioId;
+    public Integer getEntregadorId() {
+        return entregadorId;
     }
 
-    public void setUsuarioId(Integer usuarioId) {
-        this.usuarioId = usuarioId;
+    public void setEntregadorId(Integer entregadorId) {
+        this.entregadorId = entregadorId;
     }
 
     public LocalTime getTempoEstimadoRealizacao() {
@@ -197,14 +194,6 @@ public class Post {
 
     public void setTempoEstimadoRealizacao(LocalTime tempoEstimadoRealizacao) {
         this.tempoEstimadoRealizacao = tempoEstimadoRealizacao;
-    }
-
-    public Integer getPedidoId() {
-        return pedidoId;
-    }
-
-    public void setPedidoId(Integer postId) {
-        this.pedidoId = postId;
     }
 
     public Integer getSolicitanteId() {
@@ -225,8 +214,7 @@ public class Post {
         this.tempoEstimadoRealizacao = post.getTempoEstimadoRealizacao();
         this.foiEntregue = post.getFoiEntregue();
         this.foiAceito = post.getFoiAceito();
-        this.pedidoId = post.getPedidoId();
-        this.usuarioId = post.getUsuarioId();
+        this.entregadorId = post.getEntregadorId();
         this.solicitanteId = post.getSolicitanteId();
     }
 
@@ -245,9 +233,8 @@ public class Post {
                 ", tempoEstimadoRealizacao=" + tempoEstimadoRealizacao +
                 ", foiEntregue=" + foiEntregue +
                 ", foiAceito=" + foiAceito +
-                ", usuarioId=" + usuarioId +
+                ", usuarioId=" + entregadorId +
                 ", solicitanteId=" + solicitanteId +
-                ", pedidoId=" + pedidoId +
                 '}';
     }
 

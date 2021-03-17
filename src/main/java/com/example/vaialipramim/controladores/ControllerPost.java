@@ -51,8 +51,8 @@ public class ControllerPost {
         List<Post> postsUsr = new ArrayList<>(100);
         if (!posts.isEmpty()) {
             for (int i = 0; i < posts.size(); i++) {
-                Integer c = posts.get(i).getUsuarioId();
-                if (posts.get(i).getUsuarioId() == id) {
+                Integer c = posts.get(i).getEntregadorId();
+                if (posts.get(i).getEntregadorId() == id) {
                     postsUsr.add(posts.get(i));
                 }
             }
@@ -81,7 +81,7 @@ public class ControllerPost {
         if (!posts.isEmpty()) {
             for (int index = 0; index < idUsuarios.size(); index++) {
                 for (int i = 0; i < posts.size(); i++) {
-                    if (posts.get(i).getUsuarioId() == idUsuarios.get(index)) {
+                    if (posts.get(i).getEntregadorId() == idUsuarios.get(index)) {
                         postsUsr.add(posts.get(i));
                     }
                 }

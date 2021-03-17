@@ -30,6 +30,9 @@ public class Pedido {
     @Column(name = "valor_total_compras")
     private Double valorTotalCompras;
 
+    @Column(name = "post_id")
+    private Integer postId;
+
     public Pedido() {
 
     }
@@ -43,6 +46,16 @@ public class Pedido {
         this.estabelecimento = estabelecimento;
         this.produtosIds = produtosIds;
         this.valorTotalCompras = valorTotalCompras;
+    }
+
+    public Pedido(LocalDateTime dataHora, Double taxaEntrega,
+                  String estabelecimento, String produtosIds,Integer postId
+                  ) {
+        this.dataHora = dataHora;
+        this.taxaEntrega = taxaEntrega;
+        this.estabelecimento = estabelecimento;
+        this.produtosIds = produtosIds;
+        this.postId = postId;
     }
 
     public Integer getIdPedido() {
@@ -91,6 +104,14 @@ public class Pedido {
 
     public void setValorTotalCompras(Double valorTotalCompras) {
         this.valorTotalCompras = valorTotalCompras;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     @Override
