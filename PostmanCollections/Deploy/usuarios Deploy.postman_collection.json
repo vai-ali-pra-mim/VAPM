@@ -1,0 +1,195 @@
+{
+	"info": {
+		"_postman_id": "b0119b95-d9df-4c8b-a3bf-b14ca5df602d",
+		"name": "usuarios Deploy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "TRAZER TODOS USUÁRIOS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://vapm-api.herokuapp.com/usuarios/visao",
+					"protocol": "https",
+					"host": [
+						"vapm-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"usuarios",
+						"visao"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TRAZER USUÁRIO ESPECIFICO",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://vapm-api.herokuapp.com/usuarios/15",
+					"protocol": "https",
+					"host": [
+						"vapm-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"usuarios",
+						"15"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CRIAR NOVO USUÁRIO",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"nomeCompleto\": \"Carmem Mello\",\r\n        \"dataNascimento\": \"1967-04-13\",\r\n        \"telefone\": \"11940405989\",\r\n        \"email\": \"Carmem.mel14223o@5gmail.com\",\r\n        \"senha\": \"7b346j3hg4\",\r\n        \"cpf\": \"54756188764\",\r\n        \"cep\": \"02120-040\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://vapm-api.herokuapp.com/usuarios",
+					"protocol": "https",
+					"host": [
+						"vapm-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EXCLUIR UM USUARIO ESPECIFICO",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://vapm-api.herokuapp.com/usuarios/1",
+					"protocol": "https",
+					"host": [
+						"vapm-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"usuarios",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALTERAR TELEFONE DE USUARIO ESPECIFICO",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"telefone\": \"11000000000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://vapm-api.herokuapp.com/usuarios/5/telefone",
+					"protocol": "https",
+					"host": [
+						"vapm-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"usuarios",
+						"5",
+						"telefone"
+					]
+				},
+				"description": "Alterar Telefone\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "ALTERAR SENHA DE USUARIO ESPECIFICO",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"senha\": \"notsonull\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://vapm-api.herokuapp.com/usuarios/5/senha",
+					"protocol": "https",
+					"host": [
+						"vapm-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"usuarios",
+						"5",
+						"senha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALTERAR ENDERECO DE USUARIO ESPECIFICO",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"complemento\": \"Nº457\",\r\n    \"cep\": \"00000-000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://vapm-api.herokuapp.com/usuarios/5/endereco",
+					"protocol": "https",
+					"host": [
+						"vapm-api",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"usuarios",
+						"5",
+						"endereco"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

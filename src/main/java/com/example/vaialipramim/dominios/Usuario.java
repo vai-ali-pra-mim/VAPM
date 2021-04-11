@@ -1,7 +1,10 @@
 package com.example.vaialipramim.dominios;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Past;
 import java.time.LocalDate;
 
@@ -17,8 +20,8 @@ public class Usuario {
     @Length(min = 3, max = 60)
     @Column(name = "nome_completo",nullable = false)
     private String nomeCompleto;
-
-    @Length(min = 11, max = 11)
+    
+    @CPF
     @Column(unique = true, nullable = false)
     private String CPF;
 
@@ -26,6 +29,7 @@ public class Usuario {
     @Column(name = "data_nascimento",nullable = false)
     private LocalDate dataNascimento;
 
+    @Email
     @Length(min = 7, max = 65)
     @Column(unique = true,nullable = false)
     private String email;
@@ -34,10 +38,11 @@ public class Usuario {
     @Column(nullable = false)
     private String telefone;
 
-    @Column(nullable = false)
-    @Length(min = 8, max = 9)
+    @Column()
+    @Length(min = 8, max = 9 )
     private String CEP;
 
+    @Column()
     @Length(min = 3, max = 20)
     private String complemento;
 
