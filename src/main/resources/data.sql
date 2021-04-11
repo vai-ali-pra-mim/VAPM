@@ -23,14 +23,14 @@ insert into cartao(nome_titular,numero_cartao,tipo_cartao,bandeira,CVV,CPF,data_
 
 insert into usuario(nome_completo, CPF, data_nascimento,
 CEP,ponto_referencia,complemento, foto_rg, foto_perfil, eh_consumidor, coordenadas, telefone, email, senha, RG, saldo, cartao_id_cartao) values
-( 'José Antônio Sanches','04187548090','1947-04-13', '02913-000',null, 'Nº490', null, null, 1, '-23.504460475448486, -46.714190454434885', '11940987989','jose.sanches@gmail.com', 'joselito',  null, 0.0,1),
-( 'Antônio Mello','04184838090','1957-04-13', '02913-000',null, 'Nº450', null, null, 1, '-23.504592088, -46.7138931076', '11940405989','Antonio.melo@gmail.com', 'anto32snci49',  null, 0.0,1),
+( 'José Antônio Sanches','04187588090','1947-04-13', '02913-000',null, 'Nº490', null, null, 1, '-23.504460475448486, -46.714190454434885', '11940987989','jose.sanches@gmail.com', 'joselito',  null, 0.0,1),
+( 'Antônio Mello','04184838013','1957-04-13', '02913-000',null, 'Nº450', null, null, 1, '-23.504592088, -46.7138931076', '11940405989','Antonio.melo@gmail.com', 'anto32snci49',  null, 0.0,1),
 ( 'Susana B. Mattos','98638422067','1952-12-03', '02913-030',null, 'Nº370', null, null, 1,'-23.50508349488, -46.7129489558','11491939245','Mattos.susana@gmail.com', 'Wz2WhHRqGf9q',  null, 0.0,1),
 ( 'João Pessoa','76881237565','1975-11-11', '02915-100',null, 'Nº398',null, null, 1,'-23.4989735141, -46.7107743342','11783010395','joao@gmail.com', 'joao123', '216976573', 3.82,4),
 ( 'Eduardo Ribeiro Sousa','6564838090','1963-02-06', '02914-030',null, 'Nº98',null, null, 1,'-23.50327261112975, -46.70979487588505', '112543-5607','sousa.edu@gmail.com', 'anto32snci49', null, 0,1),
 ( 'Breno Alves Ferreira','98638467067','1972-04-12', '02675-031',null, 'Nº11',null, null, 1,'-23.50336360842573, -46.70840550918631','3589-7352','breno72@gmail.com', 'gn893h5945',  null, 0,1),
-( 'Vitoria Carvalho Cardoso','7688546565','1955-10-16', '02914-110',null, 'Nº43',null, null, 1,'-23.50253457638946, -46.711126708979705','11783634395','VitoriaCarvalhoCardoso@jourrapide.com', 'microscopio543', '216976573', 3.82,4),
-( 'Francisco Souza Pereira','04184838090','1955-04-13', '02913-000',null, 'Nº450',null, null, 1,'-23.504592080, -46.7138931070', '11940405989','chico', 'chico123',  null, 0.0,1),
+( 'Vitoria Carvalho Cardoso','7688546598','1955-10-16', '02914-110',null, 'Nº43',null, null, 1,'-23.50253457638946, -46.711126708979705','11783634395','VitoriaCarvalhoCardoso@jourrapide.com', 'microscopio543', '216976573', 3.82,4),
+( 'Francisco Souza Pereira','04154838096','1955-04-13', '02913-000',null, 'Nº450',null, null, 1,'-23.504592080, -46.7138931070', '11940405989','chico', 'chico123',  null, 0.0,1),
 ( 'Fábio Araujo Cunha','91149125039','2001-11-11', '02913-040',null, 'Nº316', null, null, 0,'-23.5044984864, -46.7114816928','11398367463','Caraujo.fabio@gmail.com', 'gXYQdUzY8g9g', '108265912', 12.50,2),
 ( 'Clara Souza Correia','04184838090','1998-10-22', '02912-080',null, 'Nº575', null, null, 0,'-23.50680340451, -46.71098409937','11396721374','Clara.souza@gmail.com', '43UgVjYTpWPE', '206129452', 11.98,3),
 ( 'Julia Rocha Cardoso','76881245068','1995-12-26', '02914-010',null, 'Nº398',null, null, 0,'-23.50278788212, -46.7094984534','11783010395','Cardoso.Julia@gmail.com', 'tA6sJDrGNgfv', '216978373', 7.82,4),

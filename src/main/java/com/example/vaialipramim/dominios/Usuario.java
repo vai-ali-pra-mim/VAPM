@@ -19,7 +19,7 @@ public class Usuario {
     private String nomeCompleto;
 
     @Length(min = 11, max = 11)
-    @Column(nullable = false)
+    @Column(unique = true, nullable = false)
     private String CPF;
 
     @Past
@@ -38,7 +38,6 @@ public class Usuario {
     @Length(min = 8, max = 9)
     private String CEP;
 
-    @Column(nullable = false)
     @Length(min = 3, max = 20)
     private String complemento;
 
