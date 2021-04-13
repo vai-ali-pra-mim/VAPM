@@ -98,6 +98,7 @@ public class ControllerUsuario {
     //Cria um usuario no banco
     public ResponseEntity criaUsuario(@RequestBody @Valid Usuario usuario) {
         try {
+            System.out.println(usuario);
             repository.save(usuario);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
@@ -144,7 +145,7 @@ public class ControllerUsuario {
                 }
             }
 
-            usuario.setCEP(novoEndereco.getCEP());
+            usuario.setcEP(novoEndereco.getcEP());
             usuario.setComplemento(novoEndereco.getComplemento());
             repository.save(usuario);
 
