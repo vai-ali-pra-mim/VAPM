@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,24 @@ public class ControllerProduto {
         } else {
 
             return ResponseEntity.ok(produtos.getVetor());
+        }
+    }
+
+    @GetMapping("/nomes")
+    public ResponseEntity getTodosNomes() {
+
+        List<Produto> produtos = repository.findAll();
+
+        if (produtos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            List<String> nomesProdutos = new ArrayList<String>();
+
+            for (int index =0; index < produtos.size(); index++){
+                nomesProdutos.add(produtos.get(index).getNomeProduto());
+            }
+
+            return ResponseEntity.ok(nomesProdutos);
         }
     }
     
