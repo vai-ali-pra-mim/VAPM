@@ -46,23 +46,14 @@ public class Post {
     @Column(name = "local_tarefa",nullable = false)
     private String localTarefa;
 
-    @Column(name = "esta_em_espera")
-    private Integer estaEmEspera;
-
     @Column(name = "tempo_estimado_realizacao",nullable = false)
     private LocalTime tempoEstimadoRealizacao;
 
     @Column(name = "foi_entregue")
     private Integer foiEntregue;
 
-    @Column(name = "foi_aceito")
-    private Integer foiAceito;
-
     @Column(name = "entregador_id")
     private Integer entregadorId;
-
-    @Column(name = "solicitante_id")
-    private Integer solicitanteId;
 
 
     //-----Construtor-----
@@ -81,13 +72,10 @@ public class Post {
         this.taxaEntrega = taxaEntrega;
         this.limiteQuantidadeItens = limiteQuantidadeItens;
         this.limitePesoEntrega = limitePesoEntrega;
-        this.estaEmEspera = 0;
         this.localTarefa = localTarefa;
         this.tempoEstimadoRealizacao = LocalTime.parse(tempoEstimadoRealizacao);
         this.foiEntregue = 0;
-        this.foiAceito = 0;
         this.entregadorId = null;
-        this.solicitanteId = null;
     }
 
     //-----Getters-----
@@ -149,13 +137,6 @@ public class Post {
         this.limitePesoEntrega = limitePesoEntrega;
     }
 
-    public Integer getEstaEmEspera() {
-        return estaEmEspera;
-    }
-    public void setEstaEmEspera(Integer estaEmEspera) {
-        this.estaEmEspera = estaEmEspera;
-    }
-
     public String getLocalTarefa() {
         return localTarefa;
     }
@@ -170,14 +151,6 @@ public class Post {
 
     public void setFoiEntregue(Integer foiEntregue) {
         this.foiEntregue = foiEntregue;
-    }
-
-    public Integer getFoiAceito() {
-        return foiAceito;
-    }
-
-    public void setFoiAceito(Integer foiAceito) {
-        this.foiAceito = foiAceito;
     }
 
     public Integer getEntregadorId() {
@@ -196,14 +169,6 @@ public class Post {
         this.tempoEstimadoRealizacao = tempoEstimadoRealizacao;
     }
 
-    public Integer getSolicitanteId() {
-        return solicitanteId;
-    }
-
-    public void setSolicitanteId(Integer solicitanteId) {
-        this.solicitanteId = solicitanteId;
-    }
-
     public void setAll(Post post){
         this.titulo = post.getTitulo();
         this.dataHoraRealizacao = post.getDataHoraRealizacao();
@@ -213,9 +178,7 @@ public class Post {
         this.localTarefa = post.getLocalTarefa();
         this.tempoEstimadoRealizacao = post.getTempoEstimadoRealizacao();
         this.foiEntregue = post.getFoiEntregue();
-        this.foiAceito = post.getFoiAceito();
         this.entregadorId = post.getEntregadorId();
-        this.solicitanteId = post.getSolicitanteId();
     }
 
     @Override
@@ -229,12 +192,9 @@ public class Post {
                 ", limiteQuantidadeItens=" + limiteQuantidadeItens +
                 ", limitePesoEntrega=" + limitePesoEntrega +
                 ", localTarefa='" + localTarefa + '\'' +
-                ", estaEmEspera=" + estaEmEspera +
                 ", tempoEstimadoRealizacao=" + tempoEstimadoRealizacao +
                 ", foiEntregue=" + foiEntregue +
-                ", foiAceito=" + foiAceito +
                 ", usuarioId=" + entregadorId +
-                ", solicitanteId=" + solicitanteId +
                 '}';
     }
 

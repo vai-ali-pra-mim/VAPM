@@ -41,21 +41,32 @@ CEP,ponto_referencia,complemento, foto_rg, foto_perfil, eh_consumidor, coordenad
 
 
 insert into post( titulo, data_hora_realizacao, descricao, taxa_entrega,limite_quantidade_item,
-limite_peso_entrega, local_tarefa, esta_em_espera,solicitante_id, tempo_estimado_realizacao, entregador_id,foi_entregue,foi_aceito) values
-( 'Comprar Pão', '2020-12-15T10:12:30', 'Estou indo comprar pão', 1.76, 2,3.5 ,'Mercado do zé',0,null, '00:20:30', 8,0,0),
-( 'Comprar Doril', '2020-12-15T10:18:30', 'Estou indo comprar doril', 2.20, 4,2.3, 'Loja do Marcos',0,null, '00:45:30', 8,0,0),
-( 'Comprar Xarope pra tosse', '2020-12-15T10:15:20', 'Estou indo comprar xarope pra tosse', 1.50, 5,4.75 ,'Drogasil',0,null, '00:30:30', 9,0,0),
-( 'Comprar Leite', '2020-10-26T10:17:15', 'Estou indo comprar leite', 3.76, 2,3.5 ,'Extra',0, null,'00:20:30',10,0,0),
-( 'Comprar Atroveran', '2020-10-26T10:12:40', 'Estou indo comprar atroveran', 1.95, 4,2.3, 'Drogasil',0, null, '00:45:30',11,0,0),
-( 'Comprar Conhaque', '2020-10-26T10:08:00', 'Estou indo comprar conhaque', 3.50, 4,3.3, 'Extra',0, null, '00:45:30',12,0,0),
-( 'Comprar Ração para gato ', '2020-10-26T10:13:30', 'Estou indo comprar ração para gato', 1.50, 1,4.75 ,'Petshop da Maria',0,null, '00:30:30',11,0,0),
-( 'Comprar Desodorante', '2020-10-26T10:12:40', 'Estou indo comprar desodorante', 1.75, 4,2.3, 'Drogasil',0,null, '00:45:30',13,0,0),
-( 'Comprar Chinelo', '2020-10-27T10:08:00', 'Estou indo comprar chinelo', 3.11, 4,3.3, 'Extra',0,null, '00:45:30',9,0,0);
+limite_peso_entrega, local_tarefa, tempo_estimado_realizacao, entregador_id,foi_entregue) values
+( 'Comprar Pão', '2020-12-15T10:12:30', 'Estou indo comprar pão', 1.76, 2,3.5 ,'Mercado do zé', '00:20:30', 8,0),
+( 'Comprar Doril', '2020-12-15T10:18:30', 'Estou indo comprar doril', 2.20, 4,2.3, 'Loja do Marcos', '00:45:30', 8,0),
+( 'Comprar Xarope pra tosse', '2020-12-15T10:15:20', 'Estou indo comprar xarope pra tosse', 1.50, 5,4.75 ,'Drogasil', '00:30:30', 9,0),
+( 'Comprar Leite', '2020-10-26T10:17:15', 'Estou indo comprar leite', 3.76, 2,3.5 ,'Extra','00:20:30',10,0),
+( 'Comprar Atroveran', '2020-10-26T10:12:40', 'Estou indo comprar atroveran', 1.95, 4,2.3, 'Drogasil', '00:45:30',11,0),
+( 'Comprar Conhaque', '2020-10-26T10:08:00', 'Estou indo comprar conhaque', 3.50, 4,3.3, 'Extra', '00:45:30',12,0),
+( 'Comprar Ração para gato ', '2020-10-26T10:13:30', 'Estou indo comprar ração para gato', 1.50, 1,4.75 ,'Petshop da Maria', '00:30:30',11,0),
+( 'Comprar Desodorante', '2020-10-26T10:12:40', 'Estou indo comprar desodorante', 1.75, 4,2.3, 'Drogasil', '00:45:30',13,0),
+( 'Comprar Chinelo', '2020-10-27T10:08:00', 'Estou indo comprar chinelo', 3.11, 4,3.3, 'Extra', '00:45:30',9,0);
 
 insert into pedido(data_hora,taxa_entrega,nome_estabelecimento,produtos_ids,valor_total_compras,post_id)values
 ('2007-12-03T10:15:30', 3.45,'Loja da Amália', '5,2', 12.3, 1),
 ('2003-12-03T10:15:30', 3.45,'Bar do Zé', '1,4', 15.3, 2),
 ('2007-12-03T10:15:30', 1.45,'Bar do Jão', '3,2', 21.3,3);
+
+
+insert into produto_quantidade(produto_id,quantidade_produto, pedido_id)values
+(1,2,1),
+(2,2,1),
+(4,2,2),
+(5,7,2),
+(2,2,3),
+(3,2,1),
+(6,3,1);
+
 ----------------------------------------------------------------------------------------------------------------
 
 

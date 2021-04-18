@@ -13,7 +13,6 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pedido", nullable = false)
-
     private Integer idPedido;
     @Column(name = "data_hora", nullable = false)
     private LocalDateTime dataHora;
@@ -30,15 +29,24 @@ public class Pedido {
     @Column(name = "valor_total_compras")
     private Double valorTotalCompras;
 
+    @Column(name = "foi_aceito")
+    private Integer foiAceito;
+
     @Column(name = "post_id")
     private Integer postId;
+
+    @Column(name = "solicitante_id")
+    private Integer solicitanteId;
+
+    @ManyToOne
+    private ProdutoQuantidade produtoQuantidade;
 
     public Pedido() {
 
     }
 
     public Pedido(Integer idPedido, LocalDateTime dataHora, Double taxaEntrega,
-                  String estabelecimento, String produtosIds,
+                  String estabelecimento, String produtosIds, Integer solicitanteId,
                   Double valorTotalCompras) {
         this.idPedido = idPedido;
         this.dataHora = dataHora;
@@ -46,16 +54,35 @@ public class Pedido {
         this.estabelecimento = estabelecimento;
         this.produtosIds = produtosIds;
         this.valorTotalCompras = valorTotalCompras;
+        this.solicitanteId = solicitanteId;
     }
 
     public Pedido(LocalDateTime dataHora, Double taxaEntrega,
-                  String estabelecimento, String produtosIds,Integer postId
+                  String estabelecimento, String produtosIds,Integer postId,
+                  Integer solicitanteId
                   ) {
         this.dataHora = dataHora;
         this.taxaEntrega = taxaEntrega;
         this.estabelecimento = estabelecimento;
         this.produtosIds = produtosIds;
         this.postId = postId;
+        this.solicitanteId = solicitanteId;
+    }
+
+    public Integer getFoiAceito() {
+        return foiAceito;
+    }
+
+    public void setFoiAceito(Integer foiAceito) {
+        this.foiAceito = foiAceito;
+    }
+
+    public ProdutoQuantidade getProdutoQuantidade() {
+        return produtoQuantidade;
+    }
+
+    public void setProdutoQuantidade(ProdutoQuantidade produtoQuantidade) {
+        this.produtoQuantidade = produtoQuantidade;
     }
 
     public Integer getIdPedido() {
@@ -114,6 +141,18 @@ public class Pedido {
         this.postId = postId;
     }
 
+    public void setPostId(Integer postId) {
+        this.postId = postId;
+    }
+
+    public Integer getSolicitanteId() {
+        return solicitanteId;
+    }
+
+    public void setSolicitanteId(Integer solicitanteId) {
+        this.solicitanteId = solicitanteId;
+    }
+
     @Override
     public String toString() {
         return "Pedido{" +
@@ -123,6 +162,8 @@ public class Pedido {
                 ", estabelecimento='" + estabelecimento + '\'' +
                 ", produtosIds='" + produtosIds + '\'' +
                 ", valorTotalCompras=" + valorTotalCompras +
+                ", postId=" + postId +
+                ", solicitanteId=" + solicitanteId +
                 '}';
     }
 }

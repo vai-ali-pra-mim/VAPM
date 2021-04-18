@@ -96,36 +96,36 @@ public class ControllerPost {
         return ResponseEntity.noContent().build();
     }
 
-    // Endpoint para retornar todos posts solicitados por um consumidor
-    @GetMapping("/consumidor/{id}")
-    public ResponseEntity retornaPostsConsumidor(@PathVariable int id) {
-        List<Post> posts = repository.findAll();
-        List<Post> postsSolicitadosConsumidor = new ArrayList<>();
+//    // Endpoint para retornar todos posts solicitados por um consumidor
+//    @GetMapping("/consumidor/{id}")
+//    public ResponseEntity retornaPostsConsumidor(@PathVariable int id) {
+//        List<Post> posts = repository.findAll();
+//        List<Post> postsSolicitadosConsumidor = new ArrayList<>();
+//
+//        for (Post post : posts) {
+//            if (post.getSolicitanteId() != null && post.getSolicitanteId().equals(id)) {
+//                postsSolicitadosConsumidor.add(post);
+//            }
+//        }
+//
+//        if (postsSolicitadosConsumidor.isEmpty())
+//            return ResponseEntity.noContent().build();
+//
+//        return ResponseEntity.ok(postsSolicitadosConsumidor);
+//    }
 
-        for (Post post : posts) {
-            if (post.getSolicitanteId() != null && post.getSolicitanteId().equals(id)) {
-                postsSolicitadosConsumidor.add(post);
-            }
-        }
-
-        if (postsSolicitadosConsumidor.isEmpty())
-            return ResponseEntity.noContent().build();
-
-        return ResponseEntity.ok(postsSolicitadosConsumidor);
-    }
-
-    @GetMapping("status/{id}")
-    public ResponseEntity statusEspera(@PathVariable Integer id) {
-        Optional<Post> post = repository.findById(id);
-        if (post.isPresent()) {
-            if (post.get().getEstaEmEspera().equals(1))
-                return ResponseEntity.ok().build();
-            else
-                return ResponseEntity.status(406).build();
-
-        }
-        return ResponseEntity.notFound().build();
-    }
+ //   @GetMapping("status/{id}")
+//    public ResponseEntity statusEspera(@PathVariable Integer id) {
+//        Optional<Post> post = repository.findById(id);
+//        if (post.isPresent()) {
+//            if (post.get().getEstaEmEspera().equals(1))
+//                return ResponseEntity.ok().build();
+//            else
+//                return ResponseEntity.status(406).build();
+//
+//        }
+//        return ResponseEntity.notFound().build();
+   // }
 
     // Endpoint para cadastrar Post
     @PostMapping()
@@ -170,55 +170,55 @@ public class ControllerPost {
         return ResponseEntity.of(post);
     }
 
-    @PutMapping("/status-espera/{id}/{cliente}")
-    // Endpoint para mudar status de espera de um post especifico
-    public ResponseEntity editarStatusEspera(@PathVariable Integer id, @PathVariable String cliente) {
-        Optional<Post> post = repository.findById(id);
-
-        if (post.isPresent()) {
-            Post postProcurado = post.get();
-            Integer statusAtual;
-            if (postProcurado.getEstaEmEspera() == 0 && cliente.equals("consumidor"))
-                statusAtual = 1;
-            else if (postProcurado.getEstaEmEspera() == 1 && cliente.equals("entregador"))
-                statusAtual = 0;
-            else
-                return ResponseEntity.badRequest().build();
-
-            postProcurado.setEstaEmEspera(statusAtual);
-            repository.save(postProcurado);
-            return ResponseEntity.ok(post.get().getEstaEmEspera());
-        }
-
-        return ResponseEntity.notFound().build();
-    }
-
-    @PutMapping("/status-aceite/{id}/{solicitanteId}/{cliente}")
-    // Endpoint para mudar status de aceite de um post especifico
-    public ResponseEntity editarStatusAceito(@PathVariable Integer id, @PathVariable Integer solicitanteId,
-                                             @PathVariable String cliente) {
-        Optional<Post> post = repository.findById(id);
-        if (post.isPresent()) {
-            Post postProcurado = post.get();
-            Integer statusAtual;
-            if (postProcurado.getFoiAceito() == 0 && cliente.equals("consumidor"))
-                statusAtual = 1;
-            else if (postProcurado.getFoiAceito() == 1 && cliente.equals("entregador"))
-                statusAtual = 0;
-            else
-                return ResponseEntity.badRequest().build();
-
-            postProcurado.setFoiAceito(statusAtual);
-            if (solicitanteId.equals(9999))
-                postProcurado.setSolicitanteId(null);
-            else
-                postProcurado.setSolicitanteId(solicitanteId);
-            repository.save(postProcurado);
-            return ResponseEntity.ok(post.get().getFoiAceito());
-        }
-
-        return ResponseEntity.of(post);
-    }
+//    @PutMapping("/status-espera/{id}/{cliente}")
+//    // Endpoint para mudar status de espera de um post especifico
+//    public ResponseEntity editarStatusEspera(@PathVariable Integer id, @PathVariable String cliente) {
+//        Optional<Post> post = repository.findById(id);
+//
+//        if (post.isPresent()) {
+//            Post postProcurado = post.get();
+//            Integer statusAtual;
+//            if (postProcurado.getEstaEmEspera() == 0 && cliente.equals("consumidor"))
+//                statusAtual = 1;
+//            else if (postProcurado.getEstaEmEspera() == 1 && cliente.equals("entregador"))
+//                statusAtual = 0;
+//            else
+//                return ResponseEntity.badRequest().build();
+//
+//            postProcurado.setEstaEmEspera(statusAtual);
+//            repository.save(postProcurado);
+//            return ResponseEntity.ok(post.get().getEstaEmEspera());
+//        }
+//
+//        return ResponseEntity.notFound().build();
+//    }
+//
+//    @PutMapping("/status-aceite/{id}/{solicitanteId}/{cliente}")
+//    // Endpoint para mudar status de aceite de um post especifico
+//    public ResponseEntity editarStatusAceito(@PathVariable Integer id, @PathVariable Integer solicitanteId,
+//                                             @PathVariable String cliente) {
+//        Optional<Post> post = repository.findById(id);
+//        if (post.isPresent()) {
+//            Post postProcurado = post.get();
+//            Integer statusAtual;
+//            if (postProcurado.getFoiAceito() == 0 && cliente.equals("consumidor"))
+//                statusAtual = 1;
+//            else if (postProcurado.getFoiAceito() == 1 && cliente.equals("entregador"))
+//                statusAtual = 0;
+//            else
+//                return ResponseEntity.badRequest().build();
+//
+//            postProcurado.setFoiAceito(statusAtual);
+//            if (solicitanteId.equals(9999))
+//                postProcurado.setSolicitanteId(null);
+//            else
+//                postProcurado.setSolicitanteId(solicitanteId);
+//            repository.save(postProcurado);
+//            return ResponseEntity.ok(post.get().getFoiAceito());
+//        }
+//
+//        return ResponseEntity.of(post);
+//    }
 
     //Endpoint para excluir um post
     @DeleteMapping("/{id}")

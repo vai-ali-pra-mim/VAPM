@@ -6,7 +6,9 @@ import com.example.vaialipramim.Utils.ListaObjetos;
 import com.example.vaialipramim.Utils.PilhaObj;
 import com.example.vaialipramim.dominios.Pedido;
 import com.example.vaialipramim.dominios.Produto;
+import com.example.vaialipramim.dominios.ProdutoQuantidade;
 import com.example.vaialipramim.repositorios.PedidoRepository;
+import com.example.vaialipramim.repositorios.ProdutoQuantidadeRepository;
 import com.example.vaialipramim.repositorios.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ public class ControllerPedido {
 
     @Autowired
     private PedidoRepository repository;
+    @Autowired
+    private ProdutoQuantidadeRepository produtoQuantidadeRepository;
 
     @Autowired
     private ProdutoRepository produtoRepository;
@@ -46,20 +50,26 @@ public class ControllerPedido {
         return ResponseEntity.of(pedido);
     }
 
+    public void inserirProdutosQuantidades(String getProdutosIdsEQuantidades, Integer IdPedido){
+        String[] produtosIdsEQuantidades = getProdutosIdsEQuantidades.split(";");
+
+        for (String produtoIdEQuantidade : produtosIdsEQuantidades) {
+            String[] produtoIdEQuantidadeString = produtoIdEQuantidade.split("-");
+
+            ProdutoQuantidade produtoQuantidade = new ProdutoQuantidade(Integer.parseInt(produtoIdEQuantidadeString[0]),
+                    Integer.parseInt(produtoIdEQuantidadeString[1]), IdPedido);
+            produtoQuantidadeRepository.save(produtoQuantidade);
+        }
+    }
+
     @PostMapping()
     public ResponseEntity criarPedido(@RequestBody Pedido novoPedido) {
-        double valorTotalCompras = 0;
-        List<Produto> produtos = new ArrayList<>(20);
+        System.out.println(novoPedido);
+        List<Produto> produtos = new ArrayList<>();
 
-        String[] produtosIds =novoPedido.getProdutosIds().split(",");
+        inserirProdutosQuantidades(novoPedido.getProdutosIds(), novoPedido.getIdPedido());
+        String[] produtosIdsEQuantidades =novoPedido.getProdutosIds().split(";");
 
-        for (String id : produtosIds) {
-            Produto produto = produtoRepository.findByIdProduto(Integer.parseInt(id));
-            valorTotalCompras += produto.getValor();
-            produtos.add(produto);
-        }
-
-        novoPedido.setValorTotalCompras(valorTotalCompras);
         repository.save(novoPedido);
         return ResponseEntity.ok(produtos);
     }
