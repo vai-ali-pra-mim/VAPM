@@ -29,17 +29,11 @@ public class Pedido {
     @Column(name = "valor_total_compras")
     private Double valorTotalCompras;
 
-    @Column(name = "foi_aceito")
-    private Integer foiAceito;
-
     @Column(name = "post_id")
     private Integer postId;
 
-    @Column(name = "solicitante_id")
+    @Column(name = "solicitante_id",nullable = false)
     private Integer solicitanteId;
-
-    @ManyToOne
-    private ProdutoQuantidade produtoQuantidade;
 
     public Pedido() {
 
@@ -57,8 +51,24 @@ public class Pedido {
         this.solicitanteId = solicitanteId;
     }
 
+    public Pedido(Integer idPedido, LocalDateTime dataHora, Double taxaEntrega, String estabelecimento,
+                  String produtosIds, Double valorTotalCompras, Integer postId, Integer solicitanteId) {
+        this.idPedido = idPedido;
+        this.dataHora = dataHora;
+        this.taxaEntrega = taxaEntrega;
+        this.estabelecimento = estabelecimento;
+        this.produtosIds = produtosIds;
+        this.valorTotalCompras = valorTotalCompras;
+        this.postId = postId;
+        this.solicitanteId = solicitanteId;
+    }
+
+    public Pedido(Integer postId) {
+        this.postId = postId;
+    }
+
     public Pedido(LocalDateTime dataHora, Double taxaEntrega,
-                  String estabelecimento, String produtosIds,Integer postId,
+                  String estabelecimento, String produtosIds, Integer postId,
                   Integer solicitanteId
                   ) {
         this.dataHora = dataHora;
@@ -67,22 +77,6 @@ public class Pedido {
         this.produtosIds = produtosIds;
         this.postId = postId;
         this.solicitanteId = solicitanteId;
-    }
-
-    public Integer getFoiAceito() {
-        return foiAceito;
-    }
-
-    public void setFoiAceito(Integer foiAceito) {
-        this.foiAceito = foiAceito;
-    }
-
-    public ProdutoQuantidade getProdutoQuantidade() {
-        return produtoQuantidade;
-    }
-
-    public void setProdutoQuantidade(ProdutoQuantidade produtoQuantidade) {
-        this.produtoQuantidade = produtoQuantidade;
     }
 
     public Integer getIdPedido() {

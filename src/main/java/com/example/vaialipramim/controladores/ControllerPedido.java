@@ -1,9 +1,7 @@
 package com.example.vaialipramim.controladores;
 
 import com.example.vaialipramim.Utils.Adapter;
-import com.example.vaialipramim.Utils.FilaObj;
 import com.example.vaialipramim.Utils.ListaObjetos;
-import com.example.vaialipramim.Utils.PilhaObj;
 import com.example.vaialipramim.dominios.Pedido;
 import com.example.vaialipramim.dominios.Produto;
 import com.example.vaialipramim.dominios.ProdutoQuantidade;
@@ -14,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/pedidos")
@@ -27,7 +25,6 @@ public class ControllerPedido {
     private PedidoRepository repository;
     @Autowired
     private ProdutoQuantidadeRepository produtoQuantidadeRepository;
-
     @Autowired
     private ProdutoRepository produtoRepository;
 
@@ -39,7 +36,7 @@ public class ControllerPedido {
         if (produtos.estaVazio()) {
             return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.ok(produtos.getVetor());
+            return ok(produtos.getVetor());
         }
     }
 
@@ -50,7 +47,17 @@ public class ControllerPedido {
         return ResponseEntity.of(pedido);
     }
 
-    public void inserirProdutosQuantidades(String getProdutosIdsEQuantidades, Integer IdPedido){
+    @GetMapping("usuario/{id}")
+    public ResponseEntity getPedidosPorUsuarioId(@PathVariable int id) {
+       List<Pedido> pedidos;
+        pedidos = repository.findBySolicitanteId(id);
+
+        return ok(pedidos);
+
+    }
+
+
+    public void inserirProdutosQuantidades(String getProdutosIdsEQuantidades, Integer IdPedido) {
         String[] produtosIdsEQuantidades = getProdutosIdsEQuantidades.split(";");
 
         for (String produtoIdEQuantidade : produtosIdsEQuantidades) {
@@ -64,13 +71,11 @@ public class ControllerPedido {
 
     @PostMapping()
     public ResponseEntity criarPedido(@RequestBody Pedido novoPedido) {
-        System.out.println(novoPedido);
-        List<Produto> produtos = new ArrayList<>();
+        Pedido pedido = new Pedido();
 
-        inserirProdutosQuantidades(novoPedido.getProdutosIds(), novoPedido.getIdPedido());
-        String[] produtosIdsEQuantidades =novoPedido.getProdutosIds().split(";");
-
+        novoPedido.setIdPedido(pedido.getIdPedido());
         repository.save(novoPedido);
-        return ResponseEntity.ok(produtos);
+        inserirProdutosQuantidades(novoPedido.getProdutosIds(), novoPedido.getIdPedido());
+        return ResponseEntity.created(null).build();
     }
 }

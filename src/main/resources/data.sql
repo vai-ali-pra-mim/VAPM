@@ -52,10 +52,10 @@ limite_peso_entrega, local_tarefa, tempo_estimado_realizacao, entregador_id,foi_
 ( 'Comprar Desodorante', '2020-10-26T10:12:40', 'Estou indo comprar desodorante', 1.75, 4,2.3, 'Drogasil', '00:45:30',13,0),
 ( 'Comprar Chinelo', '2020-10-27T10:08:00', 'Estou indo comprar chinelo', 3.11, 4,3.3, 'Extra', '00:45:30',9,0);
 
-insert into pedido(data_hora,taxa_entrega,nome_estabelecimento,produtos_ids,valor_total_compras,post_id)values
-('2007-12-03T10:15:30', 3.45,'Loja da Amália', '5,2', 12.3, 1),
-('2003-12-03T10:15:30', 3.45,'Bar do Zé', '1,4', 15.3, 2),
-('2007-12-03T10:15:30', 1.45,'Bar do Jão', '3,2', 21.3,3);
+insert into pedido(data_hora,taxa_entrega,nome_estabelecimento,produtos_ids,valor_total_compras,post_id, solicitante_id)values
+('2007-12-03T10:15:30', 3.45,'Loja da Amália', '5,2', 12.3, 1,2),
+('2003-12-03T10:15:30', 3.45,'Bar do Zé', '1,4', 15.3, 2,4),
+('2007-12-03T10:15:30', 1.45,'Bar do Jão', '3,2', 21.3,3,4);
 
 
 insert into produto_quantidade(produto_id,quantidade_produto, pedido_id)values

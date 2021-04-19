@@ -10,7 +10,13 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.util.List;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
+
+    @Query("select new com.example.vaialipramim.dominios.Pedido(c.idPedido, c.dataHora, c.taxaEntrega, c.estabelecimento, c.produtosIds,c.valorTotalCompras,c.postId,c.solicitanteId ) from Pedido c where solicitante_id = :id")
+    List<Pedido> findBySolicitanteId(@Param("id")int id);
+
+
 
 }
