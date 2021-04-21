@@ -145,6 +145,14 @@ public class Post {
         this.localTarefa = localTarefa;
     }
 
+    public LocalTime getTempoEstimadoRealizacao() {
+        return tempoEstimadoRealizacao;
+    }
+
+    public void setTempoEstimadoRealizacao(LocalTime tempoEstimadoRealizacao) {
+        this.tempoEstimadoRealizacao = tempoEstimadoRealizacao;
+    }
+
     public Integer getFoiEntregue() {
         return foiEntregue;
     }
@@ -159,14 +167,6 @@ public class Post {
 
     public void setEntregadorId(Integer entregadorId) {
         this.entregadorId = entregadorId;
-    }
-
-    public LocalTime getTempoEstimadoRealizacao() {
-        return tempoEstimadoRealizacao;
-    }
-
-    public void setTempoEstimadoRealizacao(LocalTime tempoEstimadoRealizacao) {
-        this.tempoEstimadoRealizacao = tempoEstimadoRealizacao;
     }
 
     public void setAll(Post post){

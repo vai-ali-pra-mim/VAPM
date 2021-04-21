@@ -1,16 +1,10 @@
 package com.example.vaialipramim.repositorios;
 
-import com.example.vaialipramim.Utils.ListaObjetos;
 import com.example.vaialipramim.dominios.Usuario;
-import com.example.vaialipramim.visoes.UsuarioLoginVisao;
 import com.example.vaialipramim.visoes.UsuarioVisao;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import javax.validation.constraints.Past;
-import java.time.LocalDate;
 import java.util.List;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {

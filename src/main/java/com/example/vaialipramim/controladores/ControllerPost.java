@@ -2,8 +2,10 @@ package com.example.vaialipramim.controladores;
 
 import com.example.vaialipramim.Utils.Adapter;
 import com.example.vaialipramim.Utils.ListaObjetos;
+import com.example.vaialipramim.dominios.Pedido;
 import com.example.vaialipramim.dominios.Post;
 import com.example.vaialipramim.dominios.Produto;
+import com.example.vaialipramim.repositorios.PedidoRepository;
 import com.example.vaialipramim.repositorios.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,9 @@ public class ControllerPost {
 
     @Autowired
     private PostRepository repository;
+
+    @Autowired
+    private PedidoRepository pedidoRepository;
 
     // Endpoint pra retornar todos os posts
     @GetMapping()
@@ -96,23 +101,24 @@ public class ControllerPost {
         return ResponseEntity.noContent().build();
     }
 
-//    // Endpoint para retornar todos posts solicitados por um consumidor
-//    @GetMapping("/consumidor/{id}")
-//    public ResponseEntity retornaPostsConsumidor(@PathVariable int id) {
-//        List<Post> posts = repository.findAll();
-//        List<Post> postsSolicitadosConsumidor = new ArrayList<>();
-//
-//        for (Post post : posts) {
-//            if (post.getSolicitanteId() != null && post.getSolicitanteId().equals(id)) {
-//                postsSolicitadosConsumidor.add(post);
-//            }
-//        }
-//
-//        if (postsSolicitadosConsumidor.isEmpty())
-//            return ResponseEntity.noContent().build();
-//
-//        return ResponseEntity.ok(postsSolicitadosConsumidor);
-//    }
+    // Endpoint para retornar todos posts solicitados por um consumidor
+    @GetMapping("/consumidor/{id}")
+    public ResponseEntity retornaPostsConsumidor(@PathVariable int id) {
+
+        List<Pedido> pedidos = pedidoRepository.findBySolicitanteId(id);
+        List<Post> postSolicitadosConsumidor = new ArrayList<>();
+
+        for (Pedido pedido : pedidos) {
+           Optional<Post> post = repository.findById(pedido.getPostId());
+           if(post.isPresent())
+               postSolicitadosConsumidor.add(post.get());
+        }
+
+        if (postSolicitadosConsumidor.isEmpty())
+            return ResponseEntity.noContent().build();
+
+        return ResponseEntity.ok(postSolicitadosConsumidor);
+    }
 
  //   @GetMapping("status/{id}")
 //    public ResponseEntity statusEspera(@PathVariable Integer id) {

@@ -23,7 +23,6 @@ public class Pedido {
     @Column(name = "nome_estabelecimento",nullable = false)
     private String estabelecimento;
 
-    @Column(name = "produtos_ids")
     private String produtosIds;
 
     @Column(name = "valor_total_compras")
