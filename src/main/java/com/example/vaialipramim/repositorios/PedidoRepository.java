@@ -17,7 +17,8 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
     @Query("select new com.example.vaialipramim.dominios.Pedido(c.idPedido, c.dataHora, c.taxaEntrega, c.estabelecimento, c.produtosIds,c.valorTotalCompras,c.postId,c.solicitanteId ) from Pedido c where solicitante_id = :id")
     List<Pedido> findBySolicitanteId(@Param("id")int id);
 
-
+    @Query("select new com.example.vaialipramim.dominios.Pedido(c.idPedido, c.dataHora, c.taxaEntrega, c.estabelecimento, c.produtosIds,c.valorTotalCompras,c.postId,c.solicitanteId ) from Pedido c where post_id = :idPost")
+    List<Pedido> findPedidosByPostId(@Param("idPost")int idPost);
 
 
 

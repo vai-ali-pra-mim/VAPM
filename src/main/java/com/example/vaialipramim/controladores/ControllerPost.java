@@ -136,9 +136,17 @@ public class ControllerPost {
     // Endpoint para cadastrar Post
     @PostMapping()
     public ResponseEntity cadastrarPost(@RequestBody @Valid Post novoPost) {
-        repository.save(novoPost);
+       try{
+           System.out.println(novoPost);
+           repository.save(novoPost);
 
-        return ResponseEntity.ok().build();
+           return ResponseEntity.ok().build();
+       }
+       catch(Exception ex){
+           System.out.println(ex);
+            return ResponseEntity.status(500).build();
+        }
+
     }
 
     @PutMapping("/{id}")

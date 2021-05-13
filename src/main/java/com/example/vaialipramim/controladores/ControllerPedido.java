@@ -33,29 +33,41 @@ public class ControllerPedido {
         Adapter adapter = new Adapter<Produto>(repository.findAll());
         ListaObjetos produtos = adapter.getListaObjetos();
 
-        if (produtos.estaVazio()) {
+        if (produtos.estaVazio())
             return ResponseEntity.noContent().build();
-        } else {
-            return ok(produtos.getVetor());
-        }
+
+        return ok(produtos.getVetor());
     }
-
-
+    
     @GetMapping("/{id}")
     public ResponseEntity getId(@PathVariable int id) {
         Optional<Pedido> pedido = repository.findById(id);
+
         return ResponseEntity.of(pedido);
     }
 
     @GetMapping("usuario/{id}")
     public ResponseEntity getPedidosPorUsuarioId(@PathVariable int id) {
-       List<Pedido> pedidos;
+        List<Pedido> pedidos;
         pedidos = repository.findBySolicitanteId(id);
 
-        return ok(pedidos);
+        if (pedidos.isEmpty())
+            return ResponseEntity.noContent().build();
 
+        return ok(pedidos);
     }
 
+    //Trazer todos os pedidos solicitados em um post
+    @GetMapping("posts/{idPost}")
+    public ResponseEntity getPedidosPorPostId(@PathVariable int idPost) {
+        List<Pedido> pedidos;
+        pedidos = repository.findPedidosByPostId(idPost);
+
+        if (pedidos.isEmpty())
+            return ResponseEntity.noContent().build();
+
+        return ok(pedidos);
+    }
 
     public void inserirProdutosQuantidades(String getProdutosIdsEQuantidades, Integer IdPedido) {
         String[] produtosIdsEQuantidades = getProdutosIdsEQuantidades.split(";");
@@ -65,6 +77,7 @@ public class ControllerPedido {
 
             ProdutoQuantidade produtoQuantidade = new ProdutoQuantidade(Integer.parseInt(produtoIdEQuantidadeString[0]),
                     Integer.parseInt(produtoIdEQuantidadeString[1]), IdPedido);
+
             produtoQuantidadeRepository.save(produtoQuantidade);
         }
     }
@@ -76,6 +89,7 @@ public class ControllerPedido {
         novoPedido.setIdPedido(pedido.getIdPedido());
         repository.save(novoPedido);
         inserirProdutosQuantidades(novoPedido.getProdutosIds(), novoPedido.getIdPedido());
+
         return ResponseEntity.created(null).build();
     }
 }
