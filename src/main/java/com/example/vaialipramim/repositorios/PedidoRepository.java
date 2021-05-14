@@ -20,6 +20,10 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer> {
     @Query("select new com.example.vaialipramim.dominios.Pedido(c.idPedido, c.dataHora, c.taxaEntrega, c.estabelecimento, c.produtosIds,c.valorTotalCompras,c.postId,c.solicitanteId ) from Pedido c where post_id = :idPost")
     List<Pedido> findPedidosByPostId(@Param("idPost")int idPost);
 
+    @Query("select new com.example.vaialipramim.dominios.Pedido(c.idPedido, c.dataHora, c.taxaEntrega, c.estabelecimento, c.produtosIds,c.valorTotalCompras,c.postId,c.solicitanteId ) from Pedido c where post_id = :idPost and foi_aceito = 2")
+    List<Pedido> findPedidosAbertosByPostId(@Param("idPost")int idPost);
 
+    @Query("select new com.example.vaialipramim.dominios.Pedido(c.idPedido, c.dataHora, c.taxaEntrega, c.estabelecimento, c.produtosIds,c.valorTotalCompras,c.postId,c.solicitanteId ) from Pedido c where post_id = :idPost and foi_aceito = 1")
+    List<Pedido> findPedidosAceitosByPostId(@Param("idPost")int idPost);
 
 }

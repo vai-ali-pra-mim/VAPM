@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.ResponseEntity.notFound;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
@@ -68,6 +70,19 @@ public class ControllerPedido {
 
         return ok(pedidos);
     }
+    //Trazer todos os pedidos solicitados em aberto em um post
+    @GetMapping("posts/{idPost}")
+    public ResponseEntity getPedidosAbertoPorPostId(@PathVariable int idPost) {
+        List<Pedido> pedidos;
+        pedidos = repository.findPedidosAbertosByPostId(idPost);
+
+        if (pedidos.isEmpty())
+            return ResponseEntity.noContent().build();
+
+        return ok(pedidos);
+    }
+
+
 
     public void inserirProdutosQuantidades(String getProdutosIdsEQuantidades, Integer IdPedido) {
         String[] produtosIdsEQuantidades = getProdutosIdsEQuantidades.split(";");
@@ -91,5 +106,29 @@ public class ControllerPedido {
         inserirProdutosQuantidades(novoPedido.getProdutosIds(), novoPedido.getIdPedido());
 
         return ResponseEntity.created(null).build();
+    }
+
+    @PatchMapping("aceitar/{idPost}")
+    public ResponseEntity aceitarPedido(@PathVariable int id){
+        Optional<Pedido> pedido =  repository.findById(id);
+        if(!pedido.isEmpty()){
+            pedido.get().setFoiAceito(1);
+            repository.save(pedido.get());
+            return ok().build();
+        }
+
+        return notFound().build();
+    }
+
+    @PatchMapping("rejeitar/{idPost}")
+    public ResponseEntity rejeitarPedido(@PathVariable int id){
+        Optional<Pedido> pedido =  repository.findById(id);
+        if(!pedido.isEmpty()){
+            pedido.get().setFoiAceito(0);
+            repository.save(pedido.get());
+            return ok().build();
+        }
+
+       return notFound().build();
     }
 }

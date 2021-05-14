@@ -31,6 +31,12 @@ public class Pedido {
     @Column(name = "post_id")
     private Integer postId;
 
+    @Column(name = "foi_entregue")
+    private Integer foiEntregue;
+
+    @Column(name = "foi_aceito")
+    private Integer foiAceito;
+
     @Column(name = "solicitante_id",nullable = false)
     private Integer solicitanteId;
 
@@ -47,6 +53,22 @@ public class Pedido {
         this.estabelecimento = estabelecimento;
         this.produtosIds = produtosIds;
         this.valorTotalCompras = valorTotalCompras;
+        this.solicitanteId = solicitanteId;
+    }
+
+
+    public Pedido(Integer idPedido, LocalDateTime dataHora, Double taxaEntrega,
+                  String estabelecimento, String produtosIds, Double valorTotalCompras,
+                  Integer postId, Integer foiEntregue, Integer foiAceito, Integer solicitanteId) {
+        this.idPedido = idPedido;
+        this.dataHora = dataHora;
+        this.taxaEntrega = taxaEntrega;
+        this.estabelecimento = estabelecimento;
+        this.produtosIds = produtosIds;
+        this.valorTotalCompras = valorTotalCompras;
+        this.postId = postId;
+        this.foiEntregue = foiEntregue;
+        this.foiAceito = foiAceito;
         this.solicitanteId = solicitanteId;
     }
 
@@ -146,6 +168,22 @@ public class Pedido {
         this.solicitanteId = solicitanteId;
     }
 
+    public Integer getFoiEntregue() {
+        return foiEntregue;
+    }
+
+    public void setFoiEntregue(Integer foiEntregue) {
+        this.foiEntregue = foiEntregue;
+    }
+
+    public Integer getFoiAceito() {
+        return foiAceito;
+    }
+
+    public void setFoiAceito(Integer foiAceito) {
+        this.foiAceito = foiAceito;
+    }
+
     @Override
     public String toString() {
         return "Pedido{" +
@@ -156,6 +194,8 @@ public class Pedido {
                 ", produtosIds='" + produtosIds + '\'' +
                 ", valorTotalCompras=" + valorTotalCompras +
                 ", postId=" + postId +
+                ", foiEntregue=" + foiEntregue +
+                ", foiAceito=" + foiAceito +
                 ", solicitanteId=" + solicitanteId +
                 '}';
     }

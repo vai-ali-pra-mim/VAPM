@@ -31,7 +31,7 @@ CEP,ponto_referencia,complemento, foto_rg, foto_perfil, eh_consumidor, coordenad
 ( 'Breno Alves Ferreira','98638467067','1972-04-12', '02675-031',null, 'Nº11',null, null, 1,'-23.481103, -46.692876','3589-7352','breno72@gmail.com', 'gn893h5945',  null, 0,1),
 ( 'Vitoria Carvalho Cardoso','7688546598','1955-10-16', '02914-110',null, 'Nº43',null, null, 1,'-23.50253457638946, -46.711126708979705','11783634395','VitoriaCarvalhoCardoso@jourrapide.com', 'microscopio543', '216976573', 3.82,4),
 ( 'Francisco Souza Pereira','04154838096','1955-04-13', '02913-000',null, 'Nº450',null, null, 1,'-23.504592080, -46.7138931070', '11940405989','chico', 'chico123',  null, 0.0,1),
-( 'Fábio Araujo Cunha','91149125039','2001-11-11', '02913-040',null, 'Nº316', null, null, 0,'-23.5044984864, -46.7114816928','11398367463','Caraujo.fabio@gmail.com', 'gXYQdUzY8g9g', '108265912', 12.50,2),
+( 'Fábio Araujo Cunha','91149125039','2001-11-11', '02913-040',null, 'Nº316', null, null, 0,'-23.5044984864, -46.7114816928','11398367463','Caraujo.fabio@gmail.com', 'teste123', '108265912', 12.50,2),
 ( 'Clara Souza Correia','04184838090','1998-10-22', '02912-080',null, 'Nº575', null, null, 0,'-23.50680340451, -46.71098409937','11396721374','Clara.souza@gmail.com', '43UgVjYTpWPE', '206129452', 11.98,3),
 ( 'Julia Rocha Cardoso','76881245068','1995-12-26', '02914-010',null, 'Nº398',null, null, 0,'-23.50278788212, -46.7094984534','11783010395','Cardoso.Julia@gmail.com', 'tA6sJDrGNgfv', '216978373', 7.82,4),
 ( 'Luan Rocha Ferreira','74549125039','2000-04-24', '02915-100',null, 'Nº123',null, null, 0,'-23.50219407289896, -46.71026454302053','2996-6591','luan546@gmail.com', 'n9c37468c', '108265912', 12.50,2),
@@ -52,10 +52,10 @@ limite_peso_entrega, local_tarefa, tempo_estimado_realizacao, entregador_id,foi_
 ( 'Comprar Desodorante', '2020-10-26T10:12:40', 'Estou indo comprar desodorante', 1.75, 4,2.3, 'Drogasil', '00:45:30',13,0),
 ( 'Comprar Chinelo', '2020-10-27T10:08:00', 'Estou indo comprar chinelo', 3.11, 4,3.3, 'Extra', '00:45:30',9,0);
 
-insert into pedido(data_hora,taxa_entrega,nome_estabelecimento,valor_total_compras,post_id, solicitante_id)values
-('2007-12-03T10:15:30', 3.45,'Loja da Amália', 12.3, 1,2),
-('2003-12-03T10:15:30', 3.45,'Bar do Zé', 15.3, 2,4),
-('2007-12-03T10:15:30', 1.45,'Bar do Jão', 21.3,3,4);
+insert into pedido(data_hora,taxa_entrega,nome_estabelecimento,valor_total_compras,post_id,produtos_ids, solicitante_id, foi_entregue, foi_aceito)values
+('2007-12-03T10:15:30', 3.45,'Loja da Amália', 12.3, 1,'1-4;2-7',2,2,2),
+('2003-12-03T10:15:30', 3.45,'Bar do Zé', 15.3, 2,'2-4;3-7',4,2,2),
+('2007-12-03T10:15:30', 1.45,'Bar do Jão', 21.3,3,'4-5;7-2',4,2,2);
 
 
 insert into produto_quantidade(produto_id,quantidade_produto, pedido_id)values
