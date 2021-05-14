@@ -115,6 +115,7 @@ public class ControllerPedido {
         repository.save(pedido.get());
 
         return ok().build();
+        
     }
 
     @PatchMapping("{idPost}/rejeitar")
