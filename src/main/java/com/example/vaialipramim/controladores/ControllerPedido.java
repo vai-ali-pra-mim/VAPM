@@ -40,7 +40,7 @@ public class ControllerPedido {
 
         return ok(produtos.getVetor());
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity getId(@PathVariable int id) {
         Optional<Pedido> pedido = repository.findById(id);
@@ -70,8 +70,9 @@ public class ControllerPedido {
 
         return ok(pedidos);
     }
+
     //Trazer todos os pedidos solicitados em aberto em um post
-    @GetMapping("posts/{idPost}")
+    @GetMapping("posts/{idPost}/abertos")
     public ResponseEntity getPedidosAbertoPorPostId(@PathVariable int idPost) {
         List<Pedido> pedidos;
         pedidos = repository.findPedidosAbertosByPostId(idPost);
@@ -81,7 +82,6 @@ public class ControllerPedido {
 
         return ok(pedidos);
     }
-
 
 
     public void inserirProdutosQuantidades(String getProdutosIdsEQuantidades, Integer IdPedido) {
@@ -108,27 +108,21 @@ public class ControllerPedido {
         return ResponseEntity.created(null).build();
     }
 
-    @PatchMapping("aceitar/{idPost}")
-    public ResponseEntity aceitarPedido(@PathVariable int id){
-        Optional<Pedido> pedido =  repository.findById(id);
-        if(!pedido.isEmpty()){
-            pedido.get().setFoiAceito(1);
-            repository.save(pedido.get());
-            return ok().build();
-        }
+    @PatchMapping("{idPost}/aceitar")
+    public ResponseEntity aceitarPedido(@PathVariable int id) {
+        Optional<Pedido> pedido = repository.findById(id);
+        pedido.get().setFoiAceito(1);
+        repository.save(pedido.get());
 
-        return notFound().build();
+        return ok().build();
     }
 
-    @PatchMapping("rejeitar/{idPost}")
-    public ResponseEntity rejeitarPedido(@PathVariable int id){
-        Optional<Pedido> pedido =  repository.findById(id);
-        if(!pedido.isEmpty()){
-            pedido.get().setFoiAceito(0);
-            repository.save(pedido.get());
-            return ok().build();
-        }
+    @PatchMapping("{idPost}/rejeitar")
+    public ResponseEntity rejeitarPedido(@PathVariable int id) {
+        Optional<Pedido> pedido = repository.findById(id);
+        pedido.get().setFoiAceito(0);
+        repository.save(pedido.get());
 
-       return notFound().build();
+        return ok().build();
     }
 }
