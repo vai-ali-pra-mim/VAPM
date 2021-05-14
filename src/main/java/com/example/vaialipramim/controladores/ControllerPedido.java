@@ -64,7 +64,7 @@ public class ControllerPedido {
     public ResponseEntity getPedidosPorPostId(@PathVariable int idPost) {
         List<Pedido> pedidos;
         pedidos = repository.findPedidosByPostId(idPost);
-
+        System.out.println("qtd todos pedidos :" + pedidos.size());
         if (pedidos.isEmpty())
             return ResponseEntity.noContent().build();
 
@@ -73,10 +73,37 @@ public class ControllerPedido {
 
     //Trazer todos os pedidos solicitados em aberto em um post
     @GetMapping("posts/{idPost}/abertos")
-    public ResponseEntity getPedidosAbertoPorPostId(@PathVariable int idPost) {
+    public ResponseEntity getPedidosAbertosPorPostId(@PathVariable int idPost) {
         List<Pedido> pedidos;
         pedidos = repository.findPedidosAbertosByPostId(idPost);
 
+        System.out.println("qtd pedidos abertos: " + pedidos.size());
+        if (pedidos.isEmpty())
+            return ResponseEntity.noContent().build();
+
+        return ok(pedidos);
+    }
+
+    //Trazer todos os pedidos solicitados de um post com status aceitos
+    @GetMapping("posts/{idPost}/aceitos")
+    public ResponseEntity getPedidosAceitosPorPostId(@PathVariable int idPost) {
+        List<Pedido> pedidos;
+        pedidos = repository.findPedidosAceitosByPostId(idPost);
+
+        System.out.println("qtd pedidos aceitos: " + pedidos.size());
+        if (pedidos.isEmpty())
+            return ResponseEntity.noContent().build();
+
+        return ok(pedidos);
+    }
+
+    //Trazer todos os pedidos solicitados de um post com status aceitos
+    @GetMapping("posts/{idPost}/recusados")
+    public ResponseEntity getPedidosRecusadosPorPostId(@PathVariable int idPost) {
+        List<Pedido> pedidos;
+        pedidos = repository.findPedidosRecusadosByPostId(idPost);
+
+        System.out.println("qtd pedidos recusados: " + pedidos.size());
         if (pedidos.isEmpty())
             return ResponseEntity.noContent().build();
 
@@ -109,18 +136,23 @@ public class ControllerPedido {
     }
 
     @PatchMapping("{idPost}/aceitar")
-    public ResponseEntity aceitarPedido(@PathVariable int id) {
-        Optional<Pedido> pedido = repository.findById(id);
-        pedido.get().setFoiAceito(1);
-        repository.save(pedido.get());
+    public ResponseEntity aceitarPedido(@PathVariable int idPost) {
+        try {
+            Optional<Pedido> pedido = repository.findById(idPost);
+            pedido.get().setFoiAceito(1);
+            repository.save(pedido.get());
 
-        return ok().build();
-        
+            return ok().build();
+        } catch (Exception exception) {
+            System.out.println(exception);
+
+            return ok().build();
+        }
     }
 
     @PatchMapping("{idPost}/rejeitar")
-    public ResponseEntity rejeitarPedido(@PathVariable int id) {
-        Optional<Pedido> pedido = repository.findById(id);
+    public ResponseEntity rejeitarPedido(@PathVariable int idPost) {
+        Optional<Pedido> pedido = repository.findById(idPost);
         pedido.get().setFoiAceito(0);
         repository.save(pedido.get());
 
