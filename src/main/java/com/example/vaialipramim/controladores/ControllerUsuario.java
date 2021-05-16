@@ -3,7 +3,6 @@ package com.example.vaialipramim.controladores;
 import com.example.vaialipramim.Utils.FilaObj;
 import com.example.vaialipramim.Utils.PilhaObj;
 import com.example.vaialipramim.dominios.Usuario;
-import com.example.vaialipramim.repositorios.CartaoRepository;
 import com.example.vaialipramim.repositorios.UsuarioRepository;
 import com.example.vaialipramim.visoes.UsuarioVisao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +37,6 @@ public class ControllerUsuario {
     @Autowired
     private UsuarioRepository repository;
 
-    @Autowired
-    private CartaoRepository cartaoRepository;
 
     //Traz todos os usuarios do banco
     @GetMapping

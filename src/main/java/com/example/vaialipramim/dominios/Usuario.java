@@ -74,14 +74,16 @@ public class Usuario {
     @Column(name = "eh_consumidor")
     private Integer ehConsumidor;
 
-    @ManyToOne()
-    private Cartao cartao;
-
 
     //-----Construtor para auxiliar nos cadastros na classe "controller"-----
 
 
-    public Usuario(@Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF, @Past LocalDate dataNascimento, @Length(min = 7, max = 65) String email, @Length(min = 10, max = 11) String telefone, @Length(min = 8, max = 9) String CEP, @Length(min = 3, max = 20) String complemento, Double saldo, String RG, String pontoReferencia, @Length(min = 7, max = 15) String senha, String coordenadas, String fotoRG, String fotoPerfil, Integer ehConsumidor, Cartao cartao) {
+    public Usuario(@Length(min = 3, max = 60) String nomeCompleto, @Length(min = 11, max = 11) String CPF,
+                   @Past LocalDate dataNascimento, @Length(min = 7, max = 65) String email,
+                   @Length(min = 10, max = 11) String telefone, @Length(min = 8, max = 9) String CEP,
+                   @Length(min = 3, max = 20) String complemento, Double saldo, String RG,
+                   String pontoReferencia, @Length(min = 7, max = 15) String senha,
+                   String coordenadas, String fotoRG, String fotoPerfil, Integer ehConsumidor) {
         this.nomeCompleto = nomeCompleto;
         this.cPF = CPF;
         this.dataNascimento = dataNascimento;
@@ -97,7 +99,6 @@ public class Usuario {
         this.fotoRG = fotoRG;
         this.fotoPerfil = fotoPerfil;
         this.ehConsumidor = ehConsumidor;
-        this.cartao = cartao;
     }
 
     public Usuario(){
@@ -225,14 +226,6 @@ public class Usuario {
         this.cEP = cEP;
     }
 
-    public Cartao getCartao() {
-        return cartao;
-    }
-
-    public void setCartao(Cartao cartao) {
-        this.cartao = cartao;
-    }
-
     public String getFotoRG() {
         return fotoRG;
     }
@@ -276,7 +269,6 @@ public class Usuario {
                 ", fotoRG='" + fotoRG + '\'' +
                 ", fotoPerfil='" + fotoPerfil + '\'' +
                 ", ehConsumidor=" + ehConsumidor +
-                ", cartao=" + cartao +
                 '}';
     }
 }
