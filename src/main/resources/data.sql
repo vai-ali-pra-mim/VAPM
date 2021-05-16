@@ -53,9 +53,10 @@ limite_peso_entrega, local_tarefa, tempo_estimado_realizacao, entregador_id,foi_
 ( 'Comprar Chinelo', '2020-10-27T10:08:00', 'Estou indo comprar chinelo', 3.11, 4,3.3, 'Extra', '00:45:30',9,0);
 
 insert into pedido(data_hora,taxa_entrega,nome_estabelecimento,valor_total_compras,post_id,produtos_ids, solicitante_id, foi_entregue, foi_aceito)values
-('2007-12-03T10:15:30', 3.45,'Loja da Amália', 12.3, 1,'1-4;2-7',2,2,2),
-('2003-12-03T10:15:30', 3.45,'Bar do Zé', 15.3, 2,'2-4;3-7',4,2,2),
-('2007-12-03T10:15:30', 1.45,'Bar do Jão', 21.3,3,'4-5;7-2',4,2,2);
+('2007-12-03T10:15:30', 2.00,'Loja da Amália', 32.29, 1,'1-4;2-7',2,2,2),
+('2003-12-03T10:15:30', 3.50,'Bar do Zé', 24.19, 2,'2-4;3-7',4,2,2),
+('2007-12-03T10:15:30', 1.00,'Bar do Jão', 164.63 ,3,'4-5;7-2',4,2,2),
+('2021-04-16T02:00:12', 1.5,'Drogasil', 6.98,3,'1-1;2-1',1,2,2);
 
 
 insert into produto_quantidade(produto_id,quantidade_produto, pedido_id)values
